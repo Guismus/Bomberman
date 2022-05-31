@@ -7,10 +7,12 @@
 
 
 #ifndef __main_H__
-    #define __main_H__
+#define __main_H__
+
     #include <iostream>
     #include "raylib.h"
 
     #define Height 1080
     #define Width 19200
+
 #endif
