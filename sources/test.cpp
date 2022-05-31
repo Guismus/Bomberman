@@ -2,13 +2,14 @@
 ** EPITECH PROJECT, 2021
 ** B-YEP-400-MPL-4-1-indiestudio-paul.comte
 ** File description:
-** main.cpp
+** test.cpp
 */
 
 #include "main.hpp"
 
-int main()
+using namespace std;
+
+void print_hello()
 {
-    print_hello();
-    return (0);
+    cout << "hello world" << endl;
 }

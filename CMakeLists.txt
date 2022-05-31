@@ -8,11 +8,12 @@ FIND_PACKAGE(raylib REQUIRED)
 project(hello)
 
 # Crée des variables avec les fichiers à compiler
-set(SRCS main.cpp)
+set(MAIN main.cpp)
+file(GLOB helloworld_SRC "sources/*.cpp")
 
 include_directories(${CMAKE_SOURCE_DIR}/header)
 
 # On indique que l'on veut un exécutable "hello" compilé à partir des fichiers décrits par les variables SRCS et HEADERS
-add_executable(hello ${SRCS})
+add_executable(hello ${MAIN} ${helloworld_SRC})
 
 TARGET_LINK_LIBRARIES(hello raylib)

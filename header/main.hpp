@@ -11,5 +11,8 @@
     #include "raylib.h"
 
     #define Height 1080
-    #define Width 19200
+    #define Width 1920
+
+void print_hello();
+
 #endif
