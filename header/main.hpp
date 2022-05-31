@@ -15,4 +15,6 @@
     #define Height 1080
     #define Width 19200
 
+void print_hello();
+
 #endif
