@@ -6,25 +6,40 @@
 */
 
 #ifndef GAME_HPP_
-#define GAME_HPP_
+    #define GAME_HPP_
 
-#include "main.hpp"
+    #include "raylib.hpp"
 
-class game
+namespace IndieStudio {
+
+    class Game {
+        private:
+            Raylib *ray;
+
+        public:
+            Game(/* args */);
+            bool isWindowClosed();
+            ~Game();
+    };
+}
+
+namespace IndieStudio {
+
+Game::Game()
 {
-private:
-    /* data */
-    std::vector<player*> players;
-    std::vector<ennemy*> ennemies;
-    std::vector<destructible*> destructibles;
-    std::vector<bombs*> bombs;
+    this->ray = new Raylib(1280, 720);
+}
 
-    GameState currentStatus;
+bool Game::isWindowClosed()
+{
+    return (this->ray->isWindowClosed());
+}
 
-public:
-    game(/* args */);
-    ~game();
-    void start();
-};
+Game::~Game()
+{
+    if (this->ray != nullptr)
+        delete this->ray;
+}
+}
 
 #endif /* !GAME_HPP_ */

@@ -1,14 +1,19 @@
-/*
-** EPITECH PROJECT, 2021
-** B-YEP-400-MPL-4-1-indiestudio-paul.comte
-** File description:
-** main.cpp
-*/
+/*******************************************************************************************
+*
+*   raylib [core] example - Initialize 3d camera free
+*
+*   This example has been created using raylib 1.3 (www.raylib.com)
+*   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+*
+*   Copyright (c) 2015 Ramon Santamaria (@raysan5)
+*
+********************************************************************************************/
 
+#include "raylib.h"
 #include "main.hpp"
 
-int main()
+int main(void)
 {
-    print_hello();
-    return (0);
+    IndieStudio::Game *game = new IndieStudio::Game;
+    while (!game->isWindowClosed());
 }
