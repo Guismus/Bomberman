@@ -7,7 +7,7 @@
 
 #ifndef IRAYLIB_HPP_
     #define IRAYLIB_HPP_
-    
+
     #include "raylib.h"
 
 namespace IndieStudio {
@@ -20,6 +20,7 @@ namespace IndieStudio {
             virtual void initWindow() = 0;
             virtual bool isWindowClosed() = 0;
             virtual void destroyWindow() = 0;
+            virtual void drawFPS() = 0;
     };
 
 }

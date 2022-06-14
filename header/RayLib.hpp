@@ -15,15 +15,16 @@ namespace IndieStudio {
     class RayLib : public IRayLib
     {
         public:
-            RayLib(int x, int y);
+            RayLib(int width, int height);
             void initWindow() override;
             bool isWindowClosed() override;
             void destroyWindow() override;
+            void drawFPS() override;
             ~RayLib();
 
         private:
-            int _x;
-            int _y;
+            int _width;
+            int _height;
     };
 
 }

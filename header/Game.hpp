@@ -9,13 +9,17 @@
     #define GAME_HPP_
 
     #include "RayLib.hpp"
+    #include "EDCamera.hpp"
 
 namespace IndieStudio {
 
     class Game : public RayLib {
         public:
             Game();
+            Camera3D getCamera();
             ~Game();
+        private:
+            EDCamera *_cam = nullptr;
     };
 }
 
