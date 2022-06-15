@@ -28,6 +28,21 @@ namespace IndieStudio {
         DrawFPS(10, 10);
     }
 
+    void RayLib::drawModel(Model model, Vector3 position, float scale, Color color)
+    {
+        DrawModel(model, position, scale, color);
+    }
+
+    void RayLib::drawCube(Vector3 position, float width, float height, float length, Color color)
+    {
+        DrawCube(position, width, height, length, color);
+    }
+
+    void RayLib::drawSphere(Vector3 position, float radius, Color color)
+    {
+        DrawSphere(position, radius, color);
+    }
+
     bool RayLib::isWindowClosed()
     {
         return (WindowShouldClose());
@@ -35,6 +50,27 @@ namespace IndieStudio {
 
     void RayLib::destroyWindow() {
         CloseWindow();
+    }
+
+    void RayLib::clear() {
+        ClearBackground(RAYWHITE);
+    }
+
+    void RayLib::beginDrawing() {
+        BeginDrawing();
+        this->clear();
+    }
+
+    void RayLib::endDrawing() {
+        EndDrawing();
+    }
+
+    void RayLib::beginDrawing3D(Camera3D camera) {
+        BeginMode3D(camera);
+    }
+
+    void RayLib::endDrawing3D() {
+        EndMode3D();
     }
 
     RayLib::~RayLib() {

@@ -12,11 +12,17 @@ namespace IndieStudio {
 Game::Game() : RayLib(1280, 720)
 {
     this->_cam = new EDCamera;
+    this->_map = new Map;
 }
 
 Camera3D Game::getCamera()
 {
     return (this->_cam->getCamera());
+}
+
+Model Game::getModelFromMap()
+{
+    return (this->_map->getModel());
 }
 
 Game::~Game()
