@@ -10,6 +10,7 @@
 
     #include "RayLib.hpp"
     #include "EDCamera.hpp"
+    #include "Map.hpp"
 
 namespace IndieStudio {
 
@@ -17,9 +18,11 @@ namespace IndieStudio {
         public:
             Game();
             Camera3D getCamera();
+            Model getModelFromMap();
             ~Game();
         private:
             EDCamera *_cam = nullptr;
+            Map *_map = nullptr;
     };
 }
 
