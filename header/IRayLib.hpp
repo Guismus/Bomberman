@@ -29,6 +29,7 @@ namespace IndieStudio {
             virtual void endDrawing() = 0;
             virtual void beginDrawing3D(Camera3D camera) = 0;
             virtual void endDrawing3D() = 0;
+            virtual bool isKeyPressed(int key) = 0;
     };
 
 }
