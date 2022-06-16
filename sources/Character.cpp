@@ -21,24 +21,26 @@ namespace IndieStudio {
             this->_position = {14.0f, 0.5f, 22.0f};
     }
 
-    void Character::move_up()
+    void Character::move()
     {
-        this->_position.x += 0.1f;
+        this->_position = misc::addVector3(this->_position, this->_speed);
     }
 
-    void Character::move_down()
+    void Character::set_speed(Direction direction)
     {
-        this->_position.x -= 0.1f;
-    }
-
-    void Character::move_left()
-    {
-        this->_position.z -= 0.1f;
-    }
-
-    void Character::move_right()
-    {
-        this->_position.z += 0.1f;
+        switch (direction) {
+        case UP:
+            this->_speed = {0.1f,0.0f,0.0f};
+            break;
+        case LEFT:
+            this->_speed = {0.0f,0.0f,-0.1f};
+            break;
+        case DOWN:
+            this->_speed = {-0.1f,0.0f,0.0f};
+            break;
+        case RIGHT:
+            this->_speed = {0.0f,0.0f,0.1f};
+        }
     }
 
     Vector3 Character::getPosition()
