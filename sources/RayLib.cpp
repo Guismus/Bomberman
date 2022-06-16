@@ -9,19 +9,7 @@
 
 namespace IndieStudio {
 
-    RayLib::RayLib(int width, int height)
-    {
-        this->_width = width;
-        this->_height = height;
-        initWindow();
-    }
-
-    void RayLib::initWindow()
-    {
-        InitWindow(this->_width, this->_height, "Bomberman");
-        Camera camera = { { 16.0f, 14.0f, 16.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, 45.0f, 0 };
-        SetTargetFPS(144);
-    }
+    RayLib::RayLib() {}
 
     void RayLib::drawFPS()
     {
@@ -46,11 +34,6 @@ namespace IndieStudio {
     bool RayLib::isWindowClosed()
     {
         return (WindowShouldClose());
-    }
-
-    void RayLib::destroyWindow()
-    {
-        CloseWindow();
     }
 
     void RayLib::clear()
@@ -81,11 +64,9 @@ namespace IndieStudio {
 
     bool RayLib::isKeyPressed(int key)
     {
-        return (IsKeyUp(key));
+        return (IsKeyDown(key));
     }
 
-    RayLib::~RayLib() {
-        this->destroyWindow();
-    }
+    RayLib::~RayLib() {}
 
 }

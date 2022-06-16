@@ -17,9 +17,7 @@ namespace IndieStudio {
         public:
             IRayLib() {}
             ~IRayLib() = default;
-            virtual void initWindow() = 0;
             virtual bool isWindowClosed() = 0;
-            virtual void destroyWindow() = 0;
             virtual void clear() = 0;
             virtual void drawModel(Model model, Vector3 position, float scale, Color tint) = 0;
             virtual void drawCube(Vector3 position, float width, float height, float length, Color color) = 0;

@@ -6,10 +6,13 @@
 */
 
 #include "Game.hpp"
+#include "stdio.h"
+
+// this->_entity->_slots[static_cast<int>(this->_player->getPosition().x) - 1][-static_cast<int>(this->_player->getPosition().z) + 22]
 
 namespace IndieStudio {
 
-Game::Game() : RayLib(1280, 720)
+Game::Game()
 {
     this->_cam = new EDCamera;
     this->_map = new Map;
@@ -17,6 +20,7 @@ Game::Game() : RayLib(1280, 720)
     this->_player2 = new Character(2);
     this->_player3 = new Character(3);
     this->_player4 = new Character(4);
+    this->_entity = new Entity;
 }
 
 Camera3D Game::getCamera()
@@ -73,6 +77,8 @@ Game::~Game()
         delete this->_player3;
     if (this->_player4)
         delete this->_player4;
+    if (this->_entity)
+        delete this->_entity;
 }
 
 }

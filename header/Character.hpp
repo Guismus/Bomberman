@@ -23,6 +23,9 @@ namespace IndieStudio {
             ~Character();
         private:
             Vector3 _position = {0};
+            int max_bomb = 1;
+            int bomb = 1;
+            bool alive = true;
     };
 
 }

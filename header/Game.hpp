@@ -12,6 +12,7 @@
     #include "EDCamera.hpp"
     #include "Map.hpp"
     #include "Character.hpp"
+    #include "Entity.hpp"
 
 namespace IndieStudio {
 
@@ -30,6 +31,7 @@ namespace IndieStudio {
             Character *_player2 = nullptr;
             Character *_player3 = nullptr;
             Character *_player4 = nullptr;
+            Entity *_entity = nullptr;
     };
 }
 

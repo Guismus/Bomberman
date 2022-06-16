@@ -23,22 +23,26 @@ namespace IndieStudio {
 
     void Character::move_up()
     {
-        this->_position.x += 0.1f;
+        if (this->_position.x >= 1.0f)
+            this->_position.x -= 0.03f;
     }
 
     void Character::move_down()
     {
-        this->_position.x -= 0.1f;
+        if (this->_position.x <= 14.0f)
+            this->_position.x += 0.03f;        
     }
 
     void Character::move_left()
     {
-        this->_position.z -= 0.1f;
+        if (this->_position.z <= 22)
+            this->_position.z += 0.03f;
     }
 
     void Character::move_right()
     {
-        this->_position.z += 0.1f;
+        if (this->_position.z >= -7)
+            this->_position.z -= 0.03f;
     }
 
     Vector3 Character::getPosition()
