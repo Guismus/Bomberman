@@ -48,29 +48,40 @@ namespace IndieStudio {
         return (WindowShouldClose());
     }
 
-    void RayLib::destroyWindow() {
+    void RayLib::destroyWindow()
+    {
         CloseWindow();
     }
 
-    void RayLib::clear() {
+    void RayLib::clear()
+    {
         ClearBackground(RAYWHITE);
     }
 
-    void RayLib::beginDrawing() {
+    void RayLib::beginDrawing()
+    {
         BeginDrawing();
         this->clear();
     }
 
-    void RayLib::endDrawing() {
+    void RayLib::endDrawing()
+    {
         EndDrawing();
     }
 
-    void RayLib::beginDrawing3D(Camera3D camera) {
+    void RayLib::beginDrawing3D(Camera3D camera)
+    {
         BeginMode3D(camera);
     }
 
-    void RayLib::endDrawing3D() {
+    void RayLib::endDrawing3D()
+    {
         EndMode3D();
+    }
+
+    bool RayLib::isKeyPressed(int key)
+    {
+        return (IsKeyUp(key));
     }
 
     RayLib::~RayLib() {

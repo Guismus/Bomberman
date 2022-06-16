@@ -11,6 +11,7 @@
     #include "RayLib.hpp"
     #include "EDCamera.hpp"
     #include "Map.hpp"
+    #include "Character.hpp"
 
 namespace IndieStudio {
 
@@ -19,10 +20,16 @@ namespace IndieStudio {
             Game();
             Camera3D getCamera();
             Model getModelFromMap();
+            void drawPlayers();
+            void event();
             ~Game();
         private:
             EDCamera *_cam = nullptr;
             Map *_map = nullptr;
+            Character *_player = nullptr;
+            Character *_player2 = nullptr;
+            Character *_player3 = nullptr;
+            Character *_player4 = nullptr;
     };
 }
 
