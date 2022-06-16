@@ -9,23 +9,20 @@
 #define CHARACTER_HPP_
 
     #include "raylib.h"
-    #include "misc.hpp"
 
 namespace IndieStudio {
 
     class Character {
         public:
             Character(int nb);
-            void move();
-            void set_speed(Direction direction);
+            void move_up();
+            void move_down();
+            void move_left();
+            void move_right();
             Vector3 getPosition();
-            Direction getDirection();
             ~Character();
-
         private:
             Vector3 _position = {0};
-            Vector3 _speed = {0};
-            Direction _direction = {0};
     };
 
 }
