@@ -19,10 +19,13 @@ namespace IndieStudio {
             void move();
             void set_speed(Direction direction);
             Vector3 getPosition();
+            Direction getDirection();
             ~Character();
+
         private:
             Vector3 _position = {0};
             Vector3 _speed = {0};
+            Direction _direction = {0};
     };
 
 }

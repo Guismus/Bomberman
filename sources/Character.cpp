@@ -41,6 +41,7 @@ namespace IndieStudio {
         case RIGHT:
             this->_speed = {0.0f,0.0f,0.1f};
         }
+        this->_direction = direction;
     }
 
     Vector3 Character::getPosition()
