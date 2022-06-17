@@ -27,6 +27,7 @@ namespace IndieStudio {
             void beginDrawing3D(Camera3D camera) override;
             void endDrawing3D() override;
             bool isKeyPressed(int key) override;
+            float TimeElapsed();
             ~RayLib();
 
         private:

@@ -67,6 +67,11 @@ namespace IndieStudio {
         return (IsKeyDown(key));
     }
 
+    float RayLib::TimeElapsed()
+    {
+        return (GetFrameTime());
+    }
+
     RayLib::~RayLib() {}
 
 }

@@ -13,6 +13,8 @@
     #include "Map.hpp"
     #include "Character.hpp"
     #include "Entity.hpp"
+    #include "Bomb.hpp"
+    #include "vector"
 
 namespace IndieStudio {
 
@@ -23,6 +25,10 @@ namespace IndieStudio {
             Model getModelFromMap();
             void drawPlayers();
             void event();
+            void dropBomb(Vector3 position, int power);
+            void ageBombs();
+            void drawBombs();
+            void explode(Vector3 position, int power);
             ~Game();
         private:
             EDCamera *_cam = nullptr;
@@ -32,6 +38,7 @@ namespace IndieStudio {
             Character *_player3 = nullptr;
             Character *_player4 = nullptr;
             Entity *_entity = nullptr;
+            std::vector<Bomb*> bombs;
     };
 }
 

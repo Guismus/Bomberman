@@ -5,11 +5,11 @@
 ** Character
 */
 
-#include "Character.hpp"
+#include "Game.hpp"
 
 namespace IndieStudio {
 
-    Character::Character(int nb, bool isIA)
+    Character::Character(int nb, bool isIA, Game *game)
     {
         if (nb == 1)
             this->_position = {1.0f, 0.0f, 22.0f};
@@ -22,6 +22,7 @@ namespace IndieStudio {
         this->player_id = nb;
         this->_model = LoadModel("../resources/bomberman/bomberman.obj");
         this->isIA = isIA;
+        this->game = game;
     }
 
     void Character::move_up()
@@ -76,24 +77,28 @@ namespace IndieStudio {
         if(isIA)
             return (this->IA_move());
         if(this->player_id == 1) {
-            if (IsKeyDown(KEY_W))
+            if (this->game->isKeyPressed(KEY_W))
                 this->move_up();
-            if (IsKeyDown(KEY_A))
+            if (this->game->isKeyPressed(KEY_A))
                 this->move_left();
-            if (IsKeyDown(KEY_S))
+            if (this->game->isKeyPressed(KEY_S))
                 this->move_down();
-            if (IsKeyDown(KEY_D))
+            if (this->game->isKeyPressed(KEY_D))
                 this->move_right();
+            if (this->game->isKeyPressed(KEY_E))
+                this->game->dropBomb(this->_position, this->power);
         }
         if(this->player_id == 2){
-            if (IsKeyDown(KEY_UP))
+            if (this->game->isKeyPressed(KEY_UP))
                 this->move_up();
-            if (IsKeyDown(KEY_LEFT))
+            if (this->game->isKeyPressed(KEY_LEFT))
                 this->move_left();
-            if (IsKeyDown(KEY_DOWN))
+            if (this->game->isKeyPressed(KEY_DOWN))
                 this->move_down();
-            if (IsKeyDown(KEY_RIGHT))
+            if (this->game->isKeyPressed(KEY_RIGHT))
                 this->move_right();
+            if (this->game->isKeyPressed(KEY_ENTER))
+                this->game->dropBomb(this->_position, this->power);
         }
     }
 
