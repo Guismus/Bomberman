@@ -12,13 +12,13 @@ namespace IndieStudio {
     Character::Character(int nb, bool isIA)
     {
         if (nb == 1)
-            this->_position = {1.0f, 0.5f, 22.0f};
+            this->_position = {1.0f, 0.0f, 22.0f};
         if (nb == 2)
-            this->_position = {1.0f, 0.5f, -7.0f};
+            this->_position = {1.0f, 0.0f, -7.0f};
         if (nb == 3)
-            this->_position = {14.0f, 0.5f, -7.0f};
+            this->_position = {14.0f, 0.0f, -7.0f};
         if (nb == 4)
-            this->_position = {14.0f, 0.5f, 22.0f};
+            this->_position = {14.0f, 0.0f, 22.0f};
         this->player_id = nb;
         this->_model = LoadModel("../resources/bomberman/bomberman.obj");
         this->isIA = isIA;
@@ -57,16 +57,16 @@ namespace IndieStudio {
     {
         switch (this->player_id) {
             case 1:
-                DrawModel(this->_model, this->_position, 1.0f, RED);
+                DrawModel(this->_model, this->_position, 0.5f, RED);
             break;
             case 2:
-                DrawModel(this->_model, this->_position, 1.0f, BLUE);
+                DrawModel(this->_model, this->_position, 0.5f, BLUE);
             break;
             case 3:
-                DrawModel(this->_model, this->_position, 1.0f, PINK);
+                DrawModel(this->_model, this->_position, 0.5f, PINK);
             break;
             case 4:
-                DrawModel(this->_model, this->_position, 1.0f, GREEN);
+                DrawModel(this->_model, this->_position, 0.5f, GREEN);
             break;
         }
     }
