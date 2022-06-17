@@ -16,10 +16,10 @@ Game::Game()
 {
     this->_cam = new EDCamera;
     this->_map = new Map;
-    this->_player = new Character(1);
-    this->_player2 = new Character(2);
-    this->_player3 = new Character(3);
-    this->_player4 = new Character(4);
+    this->_player = new Character(1, false);
+    this->_player2 = new Character(2, false);
+    this->_player3 = new Character(3, false);
+    this->_player4 = new Character(4, false);
     this->_entity = new Entity;
 }
 
@@ -35,32 +35,18 @@ Model Game::getModelFromMap()
 
 void Game::drawPlayers()
 {
-    this->drawSphere(this->_player->getPosition(), 0.5f, GREEN);
-    this->drawSphere(this->_player2->getPosition(), 0.5f, BLUE);
-    this->drawSphere(this->_player3->getPosition(), 0.5f, PURPLE);
-    this->drawSphere(this->_player4->getPosition(), 0.5f, YELLOW);
+    this->_player->draw();
+    this->_player2->draw();
+    this->_player3->draw();
+    this->_player4->draw();
 }
 
 void Game::event()
 {
-    // Joueur 1
-    if (this->isKeyPressed(KEY_W))
-        this->_player->move_up();
-    if (this->isKeyPressed(KEY_A))
-        this->_player->move_left();
-    if (this->isKeyPressed(KEY_S))
-        this->_player->move_down();
-    if (this->isKeyPressed(KEY_D))
-        this->_player->move_right();
-    // Joueur 2
-    if (this->isKeyPressed(KEY_UP))
-        this->_player2->move_up();
-    if (this->isKeyPressed(KEY_LEFT))
-        this->_player2->move_left();
-    if (this->isKeyPressed(KEY_DOWN))
-        this->_player2->move_down();
-    if (this->isKeyPressed(KEY_RIGHT))
-        this->_player2->move_right();
+    this->_player->event();
+    this->_player2->event();
+    this->_player3->event();
+    this->_player4->event();
 }
 
 Game::~Game()
