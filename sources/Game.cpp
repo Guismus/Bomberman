@@ -6,17 +6,22 @@
 */
 
 #include "Game.hpp"
+#include "stdio.h"
+#include <algorithm>
+
+// this->_entity->_slots[static_cast<int>(this->_player->getPosition().x) - 1][-static_cast<int>(this->_player->getPosition().z) + 22]
 
 namespace IndieStudio {
 
-Game::Game() : RayLib(1280, 720)
+Game::Game()
 {
     this->_cam = new EDCamera;
     this->_map = new Map;
-    this->_player = new Character(1);
-    this->_player2 = new Character(2);
-    this->_player3 = new Character(3);
-    this->_player4 = new Character(4);
+    this->_player = new Character(1, false, this);
+    this->_player2 = new Character(2, false, this);
+    this->_player3 = new Character(3, false, this);
+    this->_player4 = new Character(4, false, this);
+    this->_entity = new Entity;
 }
 
 Camera3D Game::getCamera()
@@ -31,32 +36,26 @@ Model Game::getModelFromMap()
 
 void Game::drawPlayers()
 {
-    this->drawSphere(this->_player->getPosition(), 0.5f, GREEN);
-    this->drawSphere(this->_player2->getPosition(), 0.5f, BLUE);
-    this->drawSphere(this->_player3->getPosition(), 0.5f, PURPLE);
-    this->drawSphere(this->_player4->getPosition(), 0.5f, YELLOW);
+    this->_player->draw();
+    this->_player2->draw();
+    this->_player3->draw();
+    this->_player4->draw();
+    this->drawBombs();
+}
+
+void Game::drawBombs()
+{
+    for(auto it = std::begin(this->bombs); it != std::end(this->bombs); ++it) {
+        DrawModel((*it)->getModel(), (*it)->getPosition(), 0.5f, BLACK);
+    }
 }
 
 void Game::event()
 {
-    // Joueur 1
-    if (this->isKeyPressed(KEY_W))
-        this->_player->move_up();
-    if (this->isKeyPressed(KEY_A))
-        this->_player->move_left();
-    if (this->isKeyPressed(KEY_S))
-        this->_player->move_down();
-    if (this->isKeyPressed(KEY_D))
-        this->_player->move_right();
-    // Joueur 2
-    if (this->isKeyPressed(KEY_UP))
-        this->_player2->move_up();
-    if (this->isKeyPressed(KEY_LEFT))
-        this->_player2->move_left();
-    if (this->isKeyPressed(KEY_DOWN))
-        this->_player2->move_down();
-    if (this->isKeyPressed(KEY_RIGHT))
-        this->_player2->move_right();
+    this->_player->event();
+    this->_player2->event();
+    this->_player3->event();
+    this->_player4->event();
 }
 
 Game::~Game()
@@ -73,6 +72,32 @@ Game::~Game()
         delete this->_player3;
     if (this->_player4)
         delete this->_player4;
+    if (this->_entity)
+        delete this->_entity;
+}
+
+void Game::ageBombs()
+{
+    float elapsed = this->TimeElapsed();
+    for(auto it = std::begin(this->bombs); it != std::end(this->bombs); ++it) {
+        (*it)->timer -= elapsed;
+        if((*it)->timer < 0)
+            this->explode((*it)->getPosition(), (*it)->getPower());
+    }
+    this->bombs.erase(std::remove_if( this->bombs.begin(), this->bombs.end(),
+                [](Bomb *obj) { return obj->timer < 0; }), this->bombs.end());
+
+}
+
+void Game::dropBomb(Vector3 position, int power)
+{
+    Bomb *obj = new Bomb(power, position, 5);
+    this->bombs.push_back(obj);
+}
+
+void Game::explode(Vector3 position, int power)
+{
+    //todo
 }
 
 }

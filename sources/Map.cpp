@@ -10,7 +10,6 @@
 namespace IndieStudio {
 
 Map::Map() {
-
     Image image = LoadImage("../resources/cubicmap.png");
     this->_model = LoadModelFromMesh(GenMeshCubicmap(image, { 1.0f, 1.0f, 1.0f }));
     this->_texture = LoadTexture("../resources/cubicmap_atlas.png");

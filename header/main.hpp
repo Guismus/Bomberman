@@ -12,6 +12,6 @@
     #include <iostream>
     #include <string>
     #include <vector>
-    #include "Game.hpp"
+    #include "GameState.hpp"
 
 #endif

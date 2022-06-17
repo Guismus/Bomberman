@@ -9,20 +9,28 @@
 
 int main(void)
 {
-    IndieStudio::Game *game = new IndieStudio::Game;
-    while (!game->isWindowClosed()) {
-        game->event();
-        game->beginDrawing();
-        game->beginDrawing3D(game->getCamera());
-        game->drawModel(game->getModelFromMap(), { 0.0f, 0.0f, -8.0f }, 1.0f, WHITE);
-        game->drawPlayers();
-        // game->drawCube({ 1.0f, 0.0f, 22.0f }, 1.0f, 2.0f, 1.0f, RED);
-        // game->drawCube({ 1.0f, 0.0f, -7.0f }, 1.0f, 2.0f, 1.0f, BLUE);
-        // game->drawSphere({ 12.0f, 0.3f, 22.0f }, 0.3f, YELLOW);
-        // game->drawCube({ 14.0f, 0.0f, -7.0f }, 1.0f, 2.0f, 1.0f, PURPLE);
-        game->endDrawing3D();
-        game->drawFPS();
-        game->endDrawing();
-    }
-    delete game;
+    IndieStudio::GameState *tkt = new IndieStudio::GameState;
+    tkt->menu();
+    delete(tkt);
 }
+
+/*
+enum GameState {
+    MENU,
+    GAME,
+    END
+}
+
+while !GameState::END {
+
+    if GameState::MENU {
+        Menu::renderMenu();
+    }
+
+    if GameState::GAME {
+        Menu::renderGame();
+        Menu::checkInteractions(); // Check keyboard input, and manage entity location movements
+    }
+}
+
+*/

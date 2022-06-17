@@ -15,10 +15,8 @@ namespace IndieStudio {
     class RayLib : public IRayLib
     {
         public:
-            RayLib(int width, int height);
-            void initWindow() override;
+            RayLib();
             bool isWindowClosed() override;
-            void destroyWindow() override;
             void clear() override;
             void drawModel(Model model, Vector3 position, float scale, Color tint) override;
             void drawCube(Vector3 position, float width, float height, float length, Color color) override;
@@ -29,11 +27,10 @@ namespace IndieStudio {
             void beginDrawing3D(Camera3D camera) override;
             void endDrawing3D() override;
             bool isKeyPressed(int key) override;
+            float TimeElapsed();
             ~RayLib();
 
         private:
-            int _width;
-            int _height;
     };
 
 }

@@ -10,19 +10,42 @@
 
     #include "raylib.h"
 
+typedef enum {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+} Direction;
+
+namespace IndieStudio {
+
+    class Game;
+
+}
 namespace IndieStudio {
 
     class Character {
         public:
-            Character(int nb);
+            Character(int nb, bool isIA, Game *game);
+            void event();
             void move_up();
             void move_down();
             void move_left();
             void move_right();
+            void draw();
             Vector3 getPosition();
             ~Character();
         private:
+            Game *game;
+            void IA_move();
             Vector3 _position = {0};
+            Model _model;
+            int max_bomb = 1;
+            int bomb = 1;
+            int power = 1;
+            bool alive = true;
+            bool isIA = false;
+            int player_id = 0;
     };
 
 }
