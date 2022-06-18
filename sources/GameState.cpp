@@ -7,6 +7,7 @@
 
 #include "GameState.hpp"
 #include "Game.hpp"
+#include "Menu.hpp"
 
 namespace IndieStudio {
 
@@ -18,7 +19,24 @@ GameState::GameState()
 
 void GameState::menu()
 {
-    this->game();
+    IndieStudio::Menu *menu = new IndieStudio::Menu;
+    while (!menu->isWindowClosed())
+    {
+        if (menu->isKeyPressed(KEY_ENTER))
+            this->game();
+        menu->event();
+        menu->beginDrawing();
+        if (menu->isMulti())
+            DrawText("2 player mode", 500, 30, 40, BLACK);
+        else
+            DrawText("1 player mode", 500, 30, 40, BLACK);
+        menu->drawMap();
+        DrawText("Press SPACE to enable / disable 2 players local mode!", 50, 630, 20, LIGHTGRAY);
+        DrawText("Press Q / D to change map!", 50, 660, 20, LIGHTGRAY);
+        DrawText("Press ENTER to start the game!", 50, 690, 20, LIGHTGRAY);
+        menu->endDrawing();
+    }
+    
 }
 
 void GameState::game()

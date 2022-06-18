@@ -16,7 +16,7 @@ namespace IndieStudio {
 Game::Game()
 {
     this->_cam = new EDCamera;
-    this->_map = new Map;
+    this->_map = new Map("../resources/map1.png", "../resources/cubicmap_atlas.png");
     this->_player = new Character(1, false, this);
     this->_player2 = new Character(2, false, this);
     this->_player3 = new Character(3, false, this);

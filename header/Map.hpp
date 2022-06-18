@@ -9,13 +9,16 @@
     #define MAP_HPP_
 
     #include "raylib.h"
+    #include <iostream>
+    #include <string>
 
 namespace IndieStudio {
 
 class Map {
     public:
-        Map();
+        Map(std::string path, std::string texture);
         Model getModel();
+        Texture2D getTexture();
         ~Map();
 
     private:
