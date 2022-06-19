@@ -73,7 +73,7 @@ namespace IndieStudio {
     void Character::move_up()
     {
         if (this->_position.x >= 1.0f && this->checkCollideUp())
-            this->_position.x -= 0.03f;
+            this->_position.x -= this->speed;
     }
 
     bool Character::checkCollideDown()
@@ -89,7 +89,7 @@ namespace IndieStudio {
     void Character::move_down()
     {
         if (this->_position.x <= 14.0f && this->checkCollideDown())
-            this->_position.x += 0.03f;
+            this->_position.x += this->speed;
     }
 
     bool Character::checkCollideLeft()
@@ -105,7 +105,7 @@ namespace IndieStudio {
     void Character::move_left()
     {
         if (this->_position.z <= 22 && this->checkCollideLeft())
-            this->_position.z += 0.03f;
+            this->_position.z += this->speed;
     }
 
     bool Character::checkCollideRight()
@@ -121,7 +121,7 @@ namespace IndieStudio {
     void Character::move_right()
     {
         if (this->_position.z >= -7 && this->checkCollideRight())
-            this->_position.z -= 0.03f;
+            this->_position.z -= this->speed;
     }
 
     Vector3 Character::getPosition()
@@ -171,22 +171,30 @@ namespace IndieStudio {
                 this->move_right();
             }
             if (this->game->isKeyPressed(KEY_E)) {
-                this->game->dropBomb(this->_position, this->power);
+                this->game->dropBomb(this->_position, this->power, this);
             }
-            this->_model.transform = MatrixRotateXYZ({DEG2RAD*this->_rotation.x, DEG2RAD*this->_rotation.y, DEG2RAD*this->_rotation.z});
         }
         if(this->player_id == 2){
-            if (this->game->isKeyPressed(KEY_UP))
+            if (this->game->isKeyPressed(KEY_UP)) {
                 this->move_up();
-            if (this->game->isKeyPressed(KEY_LEFT))
+                this->init_rotate(UP);
+            }
+            if (this->game->isKeyPressed(KEY_LEFT)) {
+                this->init_rotate(LEFT);
                 this->move_left();
-            if (this->game->isKeyPressed(KEY_DOWN))
+            }
+            if (this->game->isKeyPressed(KEY_DOWN)) {
+                this->init_rotate(DOWN);
                 this->move_down();
-            if (this->game->isKeyPressed(KEY_RIGHT))
+            }
+            if (this->game->isKeyPressed(KEY_RIGHT)) {
+                this->init_rotate(RIGHT);
                 this->move_right();
+            }
             if (this->game->isKeyPressed(KEY_ENTER))
-                this->game->dropBomb(this->_position, this->power);
+                this->game->dropBomb(this->_position, this->power, this);
         }
+        this->_model.transform = MatrixRotateXYZ({DEG2RAD*this->_rotation.x, DEG2RAD*this->_rotation.y, DEG2RAD*this->_rotation.z});
     }
 
     void Character::IA_move()

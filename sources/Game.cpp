@@ -19,7 +19,6 @@ Game::Game(std::string map, std::string colmap)
 {
     this->_cam = new EDCamera;
     this->_map = new Map(map, "../resources/cubicmap_atlas.png");
-    this->_entity = new Entity;
     this->_colmap = colmap;
 }
 
@@ -81,8 +80,6 @@ Game::~Game()
         delete this->_player3;
     if (this->_player4)
         delete this->_player4;
-    if (this->_entity)
-        delete this->_entity;
 }
 
 void Game::ageBombs()
@@ -90,18 +87,23 @@ void Game::ageBombs()
     float elapsed = this->TimeElapsed();
     for(auto it = std::begin(this->bombs); it != std::end(this->bombs); ++it) {
         (*it)->timer -= elapsed;
-        if((*it)->timer < 0)
+        if((*it)->timer < 0) {
             this->explode((*it)->getPosition(), (*it)->getPower());
+            (*it)->owner->bombs += 1;
+        }
     }
     this->bombs.erase(std::remove_if( this->bombs.begin(), this->bombs.end(),
                 [](Bomb *obj) { return obj->timer < 0; }), this->bombs.end());
 
 }
 
-void Game::dropBomb(Vector3 position, int power)
+void Game::dropBomb(Vector3 position, int power, Character *owner)
 {
-    Bomb *obj = new Bomb(power, position, 3);
-    this->bombs.push_back(obj);
+    if(owner->bombs > 0) {
+        Bomb *obj = new Bomb(power, position, 3, owner);
+        this->bombs.push_back(obj);
+        owner->bombs -= 1;
+    }
 }
 
 void Game::explode(Vector3 position, int power)

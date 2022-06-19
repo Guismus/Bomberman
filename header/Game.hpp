@@ -12,7 +12,7 @@
     #include "EDCamera.hpp"
     #include "Map.hpp"
     #include "Character.hpp"
-    #include "Entity.hpp"
+    #include "Powerup.hpp"
     #include "Bomb.hpp"
     #include <vector>
     #include "Wall.hpp"
@@ -31,7 +31,7 @@ namespace IndieStudio {
             void drawThings();
             void drawWalls();
             void event();
-            void dropBomb(Vector3 position, int power);
+            void dropBomb(Vector3 position, int power, Character *owner);
             void ageBombs();
             void drawBombs();
             void explode(Vector3 position, int power);
@@ -50,9 +50,9 @@ namespace IndieStudio {
             Character *_player2 = nullptr;
             Character *_player3 = nullptr;
             Character *_player4 = nullptr;
-            Entity *_entity = nullptr;
             std::vector<Bomb*> bombs;
             std::vector<Wall*> walls;
+            std::vector<Powerup *> powerups;
     };
 }
 

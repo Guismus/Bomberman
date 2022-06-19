@@ -12,6 +12,12 @@
 
 namespace IndieStudio {
 
+    class Character;
+
+}
+
+namespace IndieStudio {
+
     class Bomb
     {
     private:
@@ -19,11 +25,12 @@ namespace IndieStudio {
         Vector3 position;
         Model _model;
     public:
+        Character *owner = nullptr;
         float timer;
         Vector3 getPosition();
         int getPower();
         Model getModel();
-        Bomb(int power, Vector3 position, float timer);
+        Bomb(int power, Vector3 position, float timer, Character *owner);
         ~Bomb();
     };
 

@@ -44,18 +44,18 @@ namespace IndieStudio {
             void kill();
             Vector3 getPosition();
             ~Character();
+            int bombs = 1;
         private:
             Game *game;
             void IA_move();
             Vector3 _position = {0};
             Vector3 _rotation = {0};
             Model _model;
-            int max_bomb = 1;
-            int bomb = 1;
             int power = 1;
             bool alive = true;
             bool isIA = false;
             int player_id = 0;
+            float speed = 0.03f;
     };
 
 }
