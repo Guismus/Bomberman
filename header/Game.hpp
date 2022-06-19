@@ -23,7 +23,7 @@ namespace IndieStudio {
 
     class Game : public RayLib {
         public:
-            Game();
+            Game(std::string map, std::string colmap);
             Camera3D getCamera();
             Model getModelFromMap();
             std::vector<Wall*> getWalls();
@@ -43,6 +43,7 @@ namespace IndieStudio {
             void MakeWalls(std::string colMap);
             void newWall(Vector3 position, Walltype type);
             void newCharacter(char id, Vector3 position);
+            std::string _colmap;
             EDCamera *_cam = nullptr;
             Map *_map = nullptr;
             Character *_player = nullptr;

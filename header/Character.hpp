@@ -10,8 +10,8 @@
 
     #include "raylib.h"
     #include "raymath.h"
-    #define X_SPEED 1.5
-    #define Y_SPEED 1.2
+    #define X_SPEED 3.2
+    #define Y_SPEED 3.0
 
 typedef enum {
     UP,

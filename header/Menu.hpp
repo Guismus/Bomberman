@@ -19,6 +19,8 @@ namespace IndieStudio {
             void event();
             void drawMap();
             bool isMulti();
+            std::string getMap();
+            std::string getColMap();
             ~Menu();
 
         private:

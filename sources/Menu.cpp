@@ -31,6 +31,44 @@ void Menu::event()
         this->_nb = 1;
 }
 
+std::string Menu::getMap()
+{
+    switch (this->_nb) {
+        case 1:
+            return ("../resources/map1.png");
+            break;
+        case 2:
+            return ("../resources/map2.png");
+            break;
+        case 3:
+            return ("../resources/map3.png");
+            break;
+        case 4:
+            return ("../resources/map4.png");
+            break;
+    }
+    return (nullptr);
+}
+
+std::string Menu::getColMap()
+{
+    switch (this->_nb) {
+        case 1:
+            return ("../resources/col_map1.txt");
+            break;
+        case 2:
+            return ("../resources/col_map2.txt");
+            break;
+        case 3:
+            return ("../resources/col_map3.txt");
+            break;
+        case 4:
+            return ("../resources/col_map4.txt");
+            break;
+    }
+    return (nullptr);
+}
+
 bool Menu::isMulti()
 {
     return (this->_multi);
