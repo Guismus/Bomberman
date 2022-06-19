@@ -59,6 +59,7 @@ void GameState::game(std::string map, std::string colmap)
         game->powerupTick();
         game->drawThings();
         game->ageBombs();
+        game->checkPowerups();
         game->endDrawing3D();
         game->drawFPS();
         game->endDrawing();

@@ -50,6 +50,7 @@ namespace IndieStudio {
             Vector3 getPosition();
             ~Character();
             int bombs = 1;
+            float bombcd = 0.0f;
         private:
             Game *game;
             void IA_move();

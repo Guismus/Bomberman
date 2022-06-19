@@ -126,7 +126,6 @@ Game::~Game()
 
 void Game::ageBombs()
 {
-    int i = 0;
     float elapsed = this->TimeElapsed();
     for(auto it = std::begin(this->bombs); it != std::end(this->bombs); ++it) {
         (*it)->timer -= elapsed;
@@ -136,15 +135,16 @@ void Game::ageBombs()
         }
     }
     this->bombs.erase(std::remove_if( this->bombs.begin(), this->bombs.end(),
-                [](Bomb *obj) { return obj->timer < 0; }), this->bombs.end());
+                [](Bomb *obj) { return obj->timer <= 0; }), this->bombs.end());
 }
 
 void Game::dropBomb(Vector3 position, int power, Character *owner)
 {
-    if(owner->bombs > 0) {
+    if(owner->bombs > 0 && owner->bombcd <= 0) {
         Bomb *obj = new Bomb(power, position, 3, owner);
         this->bombs.push_back(obj);
         owner->bombs -= 1;
+        owner->bombcd = 1;
     }
 }
 
@@ -160,37 +160,33 @@ static Vector3 getPos(float x, float y, float z)
 
 void Game::explode(Vector3 position, int power)
 {
-    this->check_player(position);
-    if (this->check_box(position))
-        return;
-    if (this->check_wall(position))
-        return;
-    for(int i = 0; i < power; i++){
-        this->check_player(getPos(position.x, position.y, position.z + 1));
-        if (this->check_box(getPos(position.x, position.y, position.z + 1)))
+    int i = 0;
+    for(i = 0; i <= power; i++){
+        this->check_player(getPos(position.x, position.y, position.z + i));
+        if (this->check_box(getPos(position.x, position.y, position.z + i)))
             break;
-        if (this->check_wall(getPos(position.x, position.y, position.z + 1)))
+        if (this->check_wall(getPos(position.x, position.y, position.z + i)))
             break;
     }
-    for(int i = 0; i < power; i++){
-        this->check_player(getPos(position.x, position.y, position.z - 1));
-        if (this->check_box(getPos(position.x, position.y, position.z - 1)))
+    for(i = 0; i <= power; i++){
+        this->check_player(getPos(position.x, position.y, position.z - i));
+        if (this->check_box(getPos(position.x, position.y, position.z - i)))
             break;
-        if (this->check_wall(getPos(position.x, position.y, position.z - 1)))
-            break;
-    }
-    for(int i = 0; i < power; i++){
-        this->check_player(getPos(position.x + 1, position.y, position.z));
-        if (this->check_box(getPos(position.x + 1, position.y, position.z)))
-            break;
-        if (this->check_wall(getPos(position.x + 1, position.y, position.z)))
+        if (this->check_wall(getPos(position.x, position.y, position.z - i)))
             break;
     }
-    for(int i = 0; i < power; i++){
-        this->check_player(getPos(position.x - 1, position.y, position.z));
-        if (this->check_box(getPos(position.x - 1, position.y, position.z)))
+    for(i = 0; i <= power; i++){
+        this->check_player(getPos(position.x + i, position.y, position.z));
+        if (this->check_box(getPos(position.x + i, position.y, position.z)))
             break;
-        if (this->check_wall(getPos(position.x - 1, position.y, position.z)))
+        if (this->check_wall(getPos(position.x + i, position.y, position.z)))
+            break;
+    }
+    for(i = 0; i <= power; i++){
+        this->check_player(getPos(position.x - i, position.y, position.z));
+        if (this->check_box(getPos(position.x - i, position.y, position.z)))
+            break;
+        if (this->check_wall(getPos(position.x - i, position.y, position.z)))
             break;
     }
 }
@@ -357,35 +353,48 @@ void Game::ReadColMap()
 
     void Game::checkPowerups()
     {
-        for (Powerup *obj : this->powerups) {
+        auto it = this->powerups.begin();
+        for (; it != std::end(this->powerups); ++it) {
     if (
-        this->_player->getPosition().x >= (obj->getPosition().x - 0.5f) &&
-        this->_player->getPosition().x <= (obj->getPosition().x + 0.5f) &&
-        this->_player->getPosition().z >= (obj->getPosition().z - 0.5f) &&
-        this->_player->getPosition().z <= (obj->getPosition().z + 0.5f)
-        )
-        this->givePower(this->_player, obj->getType());
+        this->_player->getPosition().x >= ((*it)->getPosition().x - 0.5f) &&
+        this->_player->getPosition().x <= ((*it)->getPosition().x + 0.5f) &&
+        this->_player->getPosition().z >= ((*it)->getPosition().z - 0.5f) &&
+        this->_player->getPosition().z <= ((*it)->getPosition().z + 0.5f)
+        ) {
+        this->givePower(this->_player, (*it)->getType());
+        this->powerups.erase(it);
+        break;
+        }
     if (
-        this->_player2->getPosition().x >= (obj->getPosition().x - 0.5f) &&
-        this->_player2->getPosition().x <= (obj->getPosition().x + 0.5f) &&
-        this->_player2->getPosition().z >= (obj->getPosition().z - 0.5f) &&
-        this->_player2->getPosition().z <= (obj->getPosition().z + 0.5f)
-        )
-        this->givePower(this->_player2, obj->getType());
+        this->_player2->getPosition().x >= ((*it)->getPosition().x - 0.5f) &&
+        this->_player2->getPosition().x <= ((*it)->getPosition().x + 0.5f) &&
+        this->_player2->getPosition().z >= ((*it)->getPosition().z - 0.5f) &&
+        this->_player2->getPosition().z <= ((*it)->getPosition().z + 0.5f)
+        ) {
+        this->givePower(this->_player2, (*it)->getType());
+        this->powerups.erase(it);
+        break;
+        }
     if (
-        this->_player3->getPosition().x >= (obj->getPosition().x - 0.5f) &&
-        this->_player3->getPosition().x <= (obj->getPosition().x + 0.5f) &&
-        this->_player3->getPosition().z >= (obj->getPosition().z - 0.5f) &&
-        this->_player3->getPosition().z <= (obj->getPosition().z + 0.5f)
-        )
-        this->givePower(this->_player3, obj->getType());
+        this->_player3->getPosition().x >= ((*it)->getPosition().x - 0.5f) &&
+        this->_player3->getPosition().x <= ((*it)->getPosition().x + 0.5f) &&
+        this->_player3->getPosition().z >= ((*it)->getPosition().z - 0.5f) &&
+        this->_player3->getPosition().z <= ((*it)->getPosition().z + 0.5f)
+        ) {
+        this->givePower(this->_player3, (*it)->getType());
+        this->powerups.erase(it);
+        break;
+        }
     if (
-        this->_player4->getPosition().x >= (obj->getPosition().x - 0.5f) &&
-        this->_player4->getPosition().x <= (obj->getPosition().x + 0.5f) &&
-        this->_player4->getPosition().z >= (obj->getPosition().z - 0.5f) &&
-        this->_player4->getPosition().z <= (obj->getPosition().z + 0.5f)
-        )
-        this->givePower(this->_player4, obj->getType());
+        this->_player4->getPosition().x >= ((*it)->getPosition().x - 0.5f) &&
+        this->_player4->getPosition().x <= ((*it)->getPosition().x + 0.5f) &&
+        this->_player4->getPosition().z >= ((*it)->getPosition().z - 0.5f) &&
+        this->_player4->getPosition().z <= ((*it)->getPosition().z + 0.5f)
+        ) {
+        this->givePower(this->_player4, (*it)->getType());
+        this->powerups.erase(it);
+        break;
+        }
         }
     }
 

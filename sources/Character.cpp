@@ -61,13 +61,14 @@ namespace IndieStudio {
     {
         for (Wall *w : this->game->getWalls()) {
             if (w->getPosition().x == round(_position.x - 0.3f) && w->getPosition().z == round(_position.z)) {
+                if(w->getType() == UNBREAKABLE || (!this->ghosting))
                 return false;
             }
         }
         for (Bomb *w : this->game->getBombs()) {
             if (w->getPosition().x == round(_position.x - 0.3f) && w->getPosition().z == round(_position.z)) {
                 if (!(w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z)))
-                    return false;
+                    return this->ghosting;
             }
         }
         return true;
@@ -75,7 +76,7 @@ namespace IndieStudio {
 
     void Character::move_up()
     {
-        if (this->_position.x >= 1.0f && this->checkCollideUp())
+        if (this->_position.x >= 1.0f && (this->checkCollideUp()))
             this->_position.x -= this->speed;
     }
 
@@ -83,13 +84,14 @@ namespace IndieStudio {
     {
         for (Wall *w : this->game->getWalls()) {
             if (w->getPosition().x == round(_position.x + 0.3f) && w->getPosition().z == round(_position.z)) {
+                if(w->getType() == UNBREAKABLE || (!this->ghosting))
                 return false;
             }
         }
         for (Bomb *w : this->game->getBombs()) {
             if (w->getPosition().x == round(_position.x + 0.3f) && w->getPosition().z == round(_position.z)) {
                 if (!(w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z)))
-                    return false;
+                    return this->ghosting;
             }
         }
         return true;
@@ -97,7 +99,7 @@ namespace IndieStudio {
 
     void Character::move_down()
     {
-        if (this->_position.x <= 14.0f && this->checkCollideDown())
+        if (this->_position.x <= 14.0f && (this->checkCollideDown()))
             this->_position.x += this->speed;
     }
 
@@ -105,13 +107,14 @@ namespace IndieStudio {
     {
         for (Wall *w : this->game->getWalls()) {
             if (w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z + 0.3f)) {
+                if(w->getType() == UNBREAKABLE || (!this->ghosting))
                 return false;
             }
         }
         for (Bomb *w : this->game->getBombs()) {
             if (w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z + 0.3f)) {
                 if (!(w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z)))
-                    return false;
+                    return this->ghosting;
             }
         }
         return true;
@@ -119,7 +122,7 @@ namespace IndieStudio {
 
     void Character::move_left()
     {
-        if (this->_position.z <= 22 && this->checkCollideLeft())
+        if (this->_position.z <= 22 && (this->checkCollideLeft()))
             this->_position.z += this->speed;
     }
 
@@ -127,13 +130,14 @@ namespace IndieStudio {
     {
         for (Wall *w : this->game->getWalls()) {
             if (w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z - 0.3f)) {
+                if(w->getType() == UNBREAKABLE || (!this->ghosting))
                 return false;
             }
         }
         for (Bomb *w : this->game->getBombs()) {
             if (w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z - 0.3f)) {
                 if (!(w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z)))
-                    return false;
+                    return this->ghosting;
             }
         }
         return true;
@@ -141,7 +145,7 @@ namespace IndieStudio {
 
     void Character::move_right()
     {
-        if (this->_position.z >= -7 && this->checkCollideRight())
+        if (this->_position.z >= -7 && (this->checkCollideRight()))
             this->_position.z -= this->speed;
     }
 
@@ -218,6 +222,7 @@ namespace IndieStudio {
                 this->game->dropBomb(this->_position, this->power, this);
         }
         this->_model.transform = MatrixRotateXYZ({DEG2RAD*this->_rotation.x, DEG2RAD*this->_rotation.y, DEG2RAD*this->_rotation.z});
+        this->bombcd -= game->TimeElapsed();
     }
 
     bool Character::isAlive()
@@ -245,7 +250,7 @@ namespace IndieStudio {
     }
     void Character::addSpeed()
     {
-        this->speed += 0.1f;
+        this->speed += 0.05f;
     }
     void Character::addPower()
     {
