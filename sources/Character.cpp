@@ -250,7 +250,7 @@ namespace IndieStudio {
     }
     void Character::addSpeed()
     {
-        this->speed += 0.05f;
+        this->speed += 0.008f;
     }
     void Character::addPower()
     {
