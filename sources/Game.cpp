@@ -126,6 +126,11 @@ void Game::ReadColMap()
     this->MakeWalls(map);
 }
 
+    std::vector<Wall*> Game::getWalls()
+    {
+        return (this->walls);
+    }
+
     void Game::MakeWalls(std::string map)
     {
         int line = 0;

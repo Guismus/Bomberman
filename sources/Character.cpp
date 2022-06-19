@@ -41,27 +41,67 @@ namespace IndieStudio {
         }
     }
 
+    bool Character::checkCollideUp()
+    {
+        for (Wall *w : this->game->getWalls()) {
+            if (w->getPosition().x == round(_position.x - 0.3f) && w->getPosition().z == round(_position.z)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     void Character::move_up()
     {
-        if (this->_position.x >= 1.0f)
+        if (this->_position.x >= 1.0f && this->checkCollideUp())
             this->_position.x -= 0.03f;
+    }
+
+    bool Character::checkCollideDown()
+    {
+        for (Wall *w : this->game->getWalls()) {
+            if (w->getPosition().x == round(_position.x + 0.3f) && w->getPosition().z == round(_position.z)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     void Character::move_down()
     {
-        if (this->_position.x <= 14.0f)
+        if (this->_position.x <= 14.0f && this->checkCollideDown())
             this->_position.x += 0.03f;
+    }
+
+    bool Character::checkCollideLeft()
+    {
+        for (Wall *w : this->game->getWalls()) {
+            if (w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z + 0.3f)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     void Character::move_left()
     {
-        if (this->_position.z <= 22)
+        if (this->_position.z <= 22 && this->checkCollideLeft())
             this->_position.z += 0.03f;
+    }
+
+    bool Character::checkCollideRight()
+    {
+        for (Wall *w : this->game->getWalls()) {
+            if (w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z - 0.3f)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     void Character::move_right()
     {
-        if (this->_position.z >= -7)
+        if (this->_position.z >= -7 && this->checkCollideUp())
             this->_position.z -= 0.03f;
     }
 
