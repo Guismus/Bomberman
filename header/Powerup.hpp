@@ -9,6 +9,7 @@
     #define POWERUP_HPP_
 
     #include <array>
+    #include "raylib.h"
 
 typedef enum {
     SPEED,
@@ -21,9 +22,14 @@ namespace IndieStudio {
 
     class Powerup {
         public:
-            Powerup();
+            Powerup(Vector3 position);
             ~Powerup();
+            Color color;
+            Vector3 getPosition();
+            BonusType getType();
         private:
+            BonusType type;
+            Vector3 position;
     };
 
 }

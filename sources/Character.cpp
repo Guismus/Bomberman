@@ -21,7 +21,7 @@ namespace IndieStudio {
     void Character::init_rotate(Direction dir)
     {
         this->_rotation.y = fmod(this->_rotation.y,  360);
-        std::cout << "y == " << this->_rotation.y << std::endl;
+        //std::cout << "y == " << this->_rotation.y << std::endl;
         if (this->_rotation.y < 0)
             (this->_rotation.y += 360);
         switch (dir)
@@ -153,6 +153,8 @@ namespace IndieStudio {
     void Character::draw(Game *game)
     {
         //rotate
+        if (!this->alive)
+            return;
         switch (this->player_id) {
             case 1:
                 game->drawModel(this->_model, this->_position, 0.5f, RED);
@@ -174,7 +176,7 @@ namespace IndieStudio {
     {
         if(isIA)
             return (this->IA_move());
-        if(this->player_id == 1) {
+        if(this->player_id == 1 && this->alive) {
             if (this->game->isKeyPressed(KEY_W)) {
                 this->init_rotate(UP);
                 this->move_up();
@@ -195,7 +197,7 @@ namespace IndieStudio {
                 this->game->dropBomb(this->_position, this->power, this);
             }
         }
-        if(this->player_id == 2){
+        if(this->player_id == 2 && this->alive){
             if (this->game->isKeyPressed(KEY_UP)) {
                 this->init_rotate(UP);
                 this->move_up();
@@ -232,6 +234,21 @@ namespace IndieStudio {
     {
         UnloadModel(this->_model);
     }
-
+    void Character::addBomb()
+    {
+        this->bombs++;
+    }
+    void Character::addSpeed()
+    {
+        this->speed += 0.1f;
+    }
+    void Character::addPower()
+    {
+        this->power++;
+    }
+    void Character::addGhosting()
+    {
+        this->ghosting = true;
+    }
 }
 

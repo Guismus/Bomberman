@@ -40,8 +40,14 @@ void Game::drawThings()
     this->_player4->draw(this);
     this->drawBombs();
     this->drawWalls();
+    this->drawPowerups();
 }
 
+void Game::drawPowerups()
+{
+    for(auto it = std::begin(this->powerups); it != std::end(this->powerups); ++it)
+        this->drawSphere((*it)->getPosition(), 0.4f, (*it)->color);
+}
 
 void Game::drawBombs()
 {
@@ -84,6 +90,7 @@ Game::~Game()
 
 void Game::ageBombs()
 {
+    int i = 0;
     float elapsed = this->TimeElapsed();
     for(auto it = std::begin(this->bombs); it != std::end(this->bombs); ++it) {
         (*it)->timer -= elapsed;
@@ -94,7 +101,6 @@ void Game::ageBombs()
     }
     this->bombs.erase(std::remove_if( this->bombs.begin(), this->bombs.end(),
                 [](Bomb *obj) { return obj->timer < 0; }), this->bombs.end());
-
 }
 
 void Game::dropBomb(Vector3 position, int power, Character *owner)
@@ -115,9 +121,14 @@ static Vector3 getPos(float x, float y, float z)
 
     return (vec);
 }
-    
+
 void Game::explode(Vector3 position, int power)
 {
+    this->check_player(position);
+    if (this->check_box(position))
+        return;
+    if (this->check_wall(position))
+        return;
     for(int i = 0; i < power; i++){
         this->check_player(getPos(position.x, position.y, position.z + 1));
         if (this->check_box(getPos(position.x, position.y, position.z + 1)))
@@ -192,6 +203,8 @@ bool Game::check_box(Vector3 position)
     this->walls.erase(std::remove_if( this->walls.begin(), this->walls.end(),
                 [&, position](Wall *w) { return w->getPosition().x == position.x
                 && w->getPosition().z == position.z && w->getType() == BREAKABLE; }), this->walls.end());
+    if (r && RANDPERCENT(50))
+        this->dropPowerup(position);
     return r;
 }
 bool Game::check_wall(Vector3 position)
@@ -286,6 +299,75 @@ void Game::ReadColMap()
         break;
         case '4':
             this->_player4 = new Character(4, false, this, position);
+        }
+    }
+
+    void Game::powerupTick()
+    {
+        float time = this->TimeElapsed();
+        this->powerupt_timer -= time;
+        if (this->powerupt_timer <= 0) {
+            this->powerupt_timer = 15;
+            this->dropPowerup(getPos((float) (rand() % 16),
+                0, (float) (rand() % 29) -7));
+        }
+    }
+
+    void Game::dropPowerup(Vector3 position)
+    {
+        Powerup *obj = new Powerup(position);
+        this->powerups.push_back(obj);
+    }
+
+    void Game::checkPowerups()
+    {
+        for (Powerup *obj : this->powerups) {
+    if (
+        this->_player->getPosition().x >= (obj->getPosition().x - 0.5f) &&
+        this->_player->getPosition().x <= (obj->getPosition().x + 0.5f) &&
+        this->_player->getPosition().z >= (obj->getPosition().z - 0.5f) &&
+        this->_player->getPosition().z <= (obj->getPosition().z + 0.5f)
+        )
+        this->givePower(this->_player, obj->getType());
+    if (
+        this->_player2->getPosition().x >= (obj->getPosition().x - 0.5f) &&
+        this->_player2->getPosition().x <= (obj->getPosition().x + 0.5f) &&
+        this->_player2->getPosition().z >= (obj->getPosition().z - 0.5f) &&
+        this->_player2->getPosition().z <= (obj->getPosition().z + 0.5f)
+        )
+        this->givePower(this->_player2, obj->getType());
+    if (
+        this->_player3->getPosition().x >= (obj->getPosition().x - 0.5f) &&
+        this->_player3->getPosition().x <= (obj->getPosition().x + 0.5f) &&
+        this->_player3->getPosition().z >= (obj->getPosition().z - 0.5f) &&
+        this->_player3->getPosition().z <= (obj->getPosition().z + 0.5f)
+        )
+        this->givePower(this->_player3, obj->getType());
+    if (
+        this->_player4->getPosition().x >= (obj->getPosition().x - 0.5f) &&
+        this->_player4->getPosition().x <= (obj->getPosition().x + 0.5f) &&
+        this->_player4->getPosition().z >= (obj->getPosition().z - 0.5f) &&
+        this->_player4->getPosition().z <= (obj->getPosition().z + 0.5f)
+        )
+        this->givePower(this->_player4, obj->getType());
+        }
+    }
+
+    void Game::givePower(Character *player, BonusType type)
+    {
+        switch (type) {
+            case STRENGTH:
+            player->addPower();
+            break;
+            case SPEED:
+            player->addSpeed();
+            break;
+            case BOMBS:
+            player->addBomb();
+            break;
+            case GHOST:
+            player->addGhosting();
+            break;
         }
     }
 }

@@ -51,6 +51,7 @@ void GameState::game(std::string map, std::string colmap)
         game->beginDrawing();
         game->beginDrawing3D(game->getCamera());
         game->drawModel(game->getModelFromMap(), { 0.0f, 0.0f, -8.0f }, 1.0f, WHITE);
+        game->powerupTick();
         game->drawThings();
         game->ageBombs();
         game->endDrawing3D();

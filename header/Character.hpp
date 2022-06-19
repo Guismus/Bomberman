@@ -41,6 +41,10 @@ namespace IndieStudio {
             bool checkCollideRight();
             void init_rotate(Direction);
             void draw(Game *game);
+            void addBomb();
+            void addSpeed();
+            void addPower();
+            void addGhosting();
             void kill();
             Vector3 getPosition();
             ~Character();
@@ -56,6 +60,7 @@ namespace IndieStudio {
             bool isIA = false;
             int player_id = 0;
             float speed = 0.03f;
+            bool ghosting = false;
     };
 
 }

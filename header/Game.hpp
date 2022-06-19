@@ -31,6 +31,7 @@ namespace IndieStudio {
             void ReadColMap();
             void drawThings();
             void drawWalls();
+            void drawPowerups();
             void event();
             void dropBomb(Vector3 position, int power, Character *owner);
             void ageBombs();
@@ -39,6 +40,10 @@ namespace IndieStudio {
             void check_player(Vector3 position);
             bool check_wall(Vector3 position);
             bool check_box(Vector3 position);
+            void powerupTick();
+            void dropPowerup(Vector3 position);
+            void checkPowerups();
+            void givePower(Character *player, BonusType power);
             ~Game();
         private:
             void MakeWalls(std::string colMap);
@@ -54,6 +59,7 @@ namespace IndieStudio {
             std::vector<Bomb*> bombs;
             std::vector<Wall*> walls;
             std::vector<Powerup *> powerups;
+            float powerupt_timer = 15;
     };
 }
 
