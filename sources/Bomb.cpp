@@ -15,6 +15,7 @@ namespace IndieStudio {
         this->power = power;
         this->position.x = round(position.x);
         this->position.z = round(position.z);
+        this->position.y = 0.0f;
         this->timer = timer;
         this->_model = LoadModel("../resources/parts_bomberman/bomberman-8-body.obj");
     }
