@@ -81,7 +81,7 @@ void GameState::endGame(int id, int time)
         end->beginDrawing();
         switch (id) {
             case -1:
-                end->drawText("DRAW!", 700, 720 / 2, 300, BLACK);
+                end->drawText("DRAW!", 500, 720 / 2 - 150, 100, BLACK);
                 break;
             case 1:
                 end->drawText("Well played player 1!!!", 375, 720 / 2 - 100, 50, BLACK);
