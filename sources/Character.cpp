@@ -101,7 +101,7 @@ namespace IndieStudio {
 
     void Character::move_right()
     {
-        if (this->_position.z >= -7 && this->checkCollideUp())
+        if (this->_position.z >= -7 && this->checkCollideRight())
             this->_position.z -= 0.03f;
     }
 
