@@ -20,7 +20,7 @@ namespace IndieStudio {
 
     void Character::init_rotate(Direction dir)
     {
-        std::cout << "y == " << this->_rotation.y << std::endl;
+        //std::cout << "y == " << this->_rotation.y << std::endl;
         switch (dir)
         {
         case UP:
