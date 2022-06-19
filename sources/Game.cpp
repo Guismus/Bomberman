@@ -100,7 +100,7 @@ void Game::ageBombs()
 
 void Game::dropBomb(Vector3 position, int power)
 {
-    Bomb *obj = new Bomb(power, position, 5);
+    Bomb *obj = new Bomb(power, position, 3);
     this->bombs.push_back(obj);
 }
 
