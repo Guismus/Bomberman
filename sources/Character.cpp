@@ -20,46 +20,41 @@ namespace IndieStudio {
 
     void Character::init_rotate(Direction dir)
     {
+        this->_rotation.y = fmod(this->_rotation.y,  360);
         std::cout << "y == " << this->_rotation.y << std::endl;
+        if (this->_rotation.y < 0)
+            (this->_rotation.y += 360);
         switch (dir)
         {
-        case UP:
-            if (this->_rotation.y < 0) {
-                if (this->_rotation.y > -180)
-                    this->_rotation.y -= X_SPEED;
-            } else {
-                if (this->_rotation.y < 180)
-                    this->_rotation.y += X_SPEED;
-            }
-            break;
         case DOWN:
-            if (this->_rotation.y < 0 || (this->_rotation.y > 180)) {
-                this->_rotation.y += X_SPEED;
-            } else {
-                this->_rotation.y -= X_SPEED;
+            if(this->_rotation.y < 180) {
+                this->_rotation.y +=X_SPEED;
             }
+            else if (this->_rotation.y > 180)
+                this->_rotation.y -=X_SPEED;
+            break;
+        case UP:
+            if(this->_rotation.y >= 180 && this->_rotation.y != 0) {
+                this->_rotation.y +=X_SPEED;
+            }
+            else if (this->_rotation.y <= 180 && this->_rotation.y != 0)
+                this->_rotation.y -=X_SPEED;
             break;
         case LEFT:
-            if (this->_rotation.y > 85 || (this->_rotation.y < -3 && this->_rotation.y > -275)) {
-                this->_rotation.y -= Y_SPEED;
-            } else {
-                this->_rotation.y += Y_SPEED;
+            if((this->_rotation.y > 270 || this->_rotation.y <= 90) && this->_rotation.y != 270) {
+                this->_rotation.y -=X_SPEED;
             }
+            else if (this->_rotation.y < 270 && this->_rotation.y > 90 && this->_rotation.y != 270)
+                this->_rotation.y +=X_SPEED;
             break;
         case RIGHT:
-            if (this->_rotation.y < -85 || (this->_rotation.y > 170 && this->_rotation.y < 275)) {
-                this->_rotation.y += Y_SPEED;
-            } else {
-                this->_rotation.y -= Y_SPEED;
+            if((this->_rotation.y >= 270 || this->_rotation.y < 90) && this->_rotation.y != 90) {
+                this->_rotation.y +=X_SPEED;
             }
+            else if (this->_rotation.y < 270 && this->_rotation.y > 90 && this->_rotation.y != 90)
+                this->_rotation.y -=X_SPEED;
             break;
         }
-        if (this->_rotation.y < -272 && this->_rotation.y > -277)
-            this->_rotation.y = 85;
-        if (this->_rotation.y > 272 && this->_rotation.y < 277)
-            this->_rotation.y = -85;
-        if (this->_rotation.y > 300 || this->_rotation.y < -300)
-            this->_rotation.y = 0;
     }
 
     bool Character::checkCollideUp()
