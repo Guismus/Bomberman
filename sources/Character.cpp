@@ -175,6 +175,11 @@ namespace IndieStudio {
         //todo
     }
 
+    void Character::kill()
+    {
+        this->alive = false;
+    }
+
     Character::~Character()
     {
         UnloadModel(this->_model);

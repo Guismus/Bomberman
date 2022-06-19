@@ -105,7 +105,95 @@ void Game::dropBomb(Vector3 position, int power)
 
 void Game::explode(Vector3 position, int power)
 {
-    //todo
+    for(int i = 0; i < power; i++){
+        this->check_player((Vector3){position.x, position.y, position.z + 1});
+        if (this->check_box((Vector3){position.x, position.y, position.z + 1}))
+            break;
+        if (this->check_wall((Vector3){position.x, position.y, position.z + 1}))
+            break;
+    }
+    for(int i = 0; i < power; i++){
+        this->check_player((Vector3){position.x, position.y, position.z - 1});
+        if (this->check_box((Vector3){position.x, position.y, position.z - 1}))
+            break;
+        if (this->check_wall((Vector3){position.x, position.y, position.z - 1}))
+            break;
+    }
+    for(int i = 0; i < power; i++){
+        this->check_player((Vector3){position.x + 1, position.y, position.z});
+        if (this->check_box((Vector3){position.x + 1, position.y, position.z}))
+            break;
+        if (this->check_wall((Vector3){position.x + 1, position.y, position.z}))
+            break;
+    }
+    for(int i = 0; i < power; i++){
+        this->check_player((Vector3){position.x - 1, position.y, position.z});
+        if (this->check_box((Vector3){position.x - 1, position.y, position.z}))
+            break;
+        if (this->check_wall((Vector3){position.x - 1, position.y, position.z}))
+            break;
+    }
+}
+
+void Game::check_player(Vector3 position)
+{
+    DrawSphere(position, 0.5f, RED);
+    if (
+        this->_player->getPosition().x >= (position.x - 0.5f) &&
+        this->_player->getPosition().x <= (position.x + 0.5f) &&
+        this->_player->getPosition().z >= (position.z - 0.5f) &&
+        this->_player->getPosition().z <= (position.z + 0.5f)
+        )
+        this->_player->kill();
+    if (
+        this->_player2->getPosition().x >= (position.x - 0.5f) &&
+        this->_player2->getPosition().x <= (position.x + 0.5f) &&
+        this->_player2->getPosition().z >= (position.z - 0.5f) &&
+        this->_player2->getPosition().z <= (position.z + 0.5f)
+        )
+        this->_player2->kill();
+    if (
+        this->_player3->getPosition().x >= (position.x - 0.5f) &&
+        this->_player3->getPosition().x <= (position.x + 0.5f) &&
+        this->_player3->getPosition().z >= (position.z - 0.5f) &&
+        this->_player3->getPosition().z <= (position.z + 0.5f)
+        )
+        this->_player3->kill();
+    if (
+        this->_player4->getPosition().x >= (position.x - 0.5f) &&
+        this->_player4->getPosition().x <= (position.x + 0.5f) &&
+        this->_player4->getPosition().z >= (position.z - 0.5f) &&
+        this->_player4->getPosition().z <= (position.z + 0.5f)
+        )
+        this->_player4->kill();
+}
+
+bool Game::check_box(Vector3 position)
+{
+    bool r = false;
+    for (Wall *w : this->getWalls()) {
+            if (w->getPosition().x == position.x && w->getPosition().z == position.z && w->getType() == BREAKABLE) {
+                r = true;
+            }
+        }
+    this->walls.erase(std::remove_if( this->walls.begin(), this->walls.end(),
+                [&, position](Wall *w) { return w->getPosition().x == position.x
+                && w->getPosition().z == position.z && w->getType() == BREAKABLE; }), this->walls.end());
+    return r;
+}
+bool Game::check_wall(Vector3 position)
+{
+    bool r = false;
+    for (Wall *w : this->getWalls()) {
+            if (w->getPosition().x == position.x && w->getPosition().z == position.z && w->getType() == UNBREAKABLE) {
+                r = true;
+            }
+        }
+    for(auto it = std::begin(this->bombs); it != std::end(this->bombs); ++it) {
+        if((*it)->getPosition().x == position.x && (*it)->getPosition().z == position.z)
+           (*it)->timer = 0;
+    }
+    return r;
 }
 
 void Game::ReadColMap()

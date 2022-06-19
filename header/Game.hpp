@@ -35,6 +35,9 @@ namespace IndieStudio {
             void ageBombs();
             void drawBombs();
             void explode(Vector3 position, int power);
+            void check_player(Vector3 position);
+            bool check_wall(Vector3 position);
+            bool check_box(Vector3 position);
             ~Game();
         private:
             void MakeWalls(std::string colMap);

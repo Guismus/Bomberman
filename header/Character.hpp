@@ -41,6 +41,7 @@ namespace IndieStudio {
             bool checkCollideRight();
             void init_rotate(Direction);
             void draw(Game *game);
+            void kill();
             Vector3 getPosition();
             ~Character();
         private:
