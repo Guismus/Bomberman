@@ -9,6 +9,7 @@
     #define IRAYLIB_HPP_
 
     #include "raylib.h"
+    #include <string>
 
 namespace IndieStudio {
 
@@ -23,6 +24,7 @@ namespace IndieStudio {
             virtual void drawModel(Model model, Vector3 position, float scale, Color tint) = 0;
             virtual void drawCube(Vector3 position, float width, float height, float length, Color color) = 0;
             virtual void drawSphere(Vector3 position, float radius, Color color) = 0;
+            virtual void drawText(std::string str, int x, int y, int size, Color color) = 0;
             virtual void drawFPS() = 0;
             virtual void beginDrawing() = 0;
             virtual void endDrawing() = 0;

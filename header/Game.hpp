@@ -28,8 +28,10 @@ namespace IndieStudio {
             Model getModelFromMap();
             std::vector<Wall*> getWalls();
             std::vector<Bomb*> getBombs();
+            void addTime();
             void ReadColMap();
             void drawThings();
+            void drawHUD();
             void drawWalls();
             void event();
             void dropBomb(Vector3 position, int power, Character *owner);
@@ -44,6 +46,7 @@ namespace IndieStudio {
             void MakeWalls(std::string colMap);
             void newWall(Vector3 position, Walltype type);
             void newCharacter(char id, Vector3 position);
+            int _time = 0;
             std::string _colmap;
             EDCamera *_cam = nullptr;
             Map *_map = nullptr;

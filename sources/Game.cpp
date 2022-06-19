@@ -42,6 +42,42 @@ void Game::drawThings()
     this->drawWalls();
 }
 
+void Game::addTime()
+{
+    this->_time++;
+}
+
+void Game::drawHUD()
+{
+    std::string time = "";
+    if (_player->isAlive())
+        this->drawText("Player 1: Alive", 300, 30, 30, DARKGRAY);
+    else
+        this->drawText("Player 1: Dead", 300, 30, 30, LIGHTGRAY);
+
+    if (_player2->isAlive())
+        this->drawText("Player 2: Alive", 750, 30, 30, DARKGRAY);
+    else
+        this->drawText("Player 2: Dead", 750, 30, 30, LIGHTGRAY);
+
+    if (_player3->isAlive())
+        this->drawText("Player 3: Alive", 300, 70, 30, DARKGRAY);
+    else
+        this->drawText("Player 3: Dead", 300, 70, 30, LIGHTGRAY);
+    
+    if (_player4->isAlive())
+        this->drawText("Player 4: Alive", 750, 70, 30, DARKGRAY);
+    else
+        this->drawText("Player 4: Dead", 750, 70, 30, LIGHTGRAY);
+    if (std::to_string(this->_time / 60).length() == 1)
+        time.append("0");
+    time.append(std::to_string(this->_time / 60)).append(":");
+    if (std::to_string(this->_time % 60).length() == 1)
+        time.append("0");
+    time.append(std::to_string(this->_time % 60));
+    this->drawText(time, 520, 175, 100, BLACK);
+}
+
 
 void Game::drawBombs()
 {

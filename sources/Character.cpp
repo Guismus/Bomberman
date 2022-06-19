@@ -218,6 +218,11 @@ namespace IndieStudio {
         this->_model.transform = MatrixRotateXYZ({DEG2RAD*this->_rotation.x, DEG2RAD*this->_rotation.y, DEG2RAD*this->_rotation.z});
     }
 
+    bool Character::isAlive()
+    {
+        return (this->alive);
+    }
+
     void Character::IA_move()
     {
         //todo
