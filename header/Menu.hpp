@@ -29,6 +29,7 @@ namespace IndieStudio {
             Map *_map = nullptr;
             Map *_map2 = nullptr;
             Map *_map3 = nullptr;
+            Map *_map4 = nullptr;
     };
 
 }

@@ -13,6 +13,7 @@ Menu::Menu() {
     this->_map = new Map("../resources/map1.png", "../resources/map1.png");
     this->_map2 = new Map("../resources/map2.png", "../resources/map2.png");
     this->_map3 = new Map("../resources/map3.png", "../resources/map3.png");
+    this->_map4 = new Map("../resources/map4.png", "../resources/map4.png");
     this->_nb = 1;
     this->_multi = false;
 }
@@ -26,8 +27,8 @@ void Menu::event()
     if (IsKeyPressed(KEY_D))
         this->_nb++;
     if (this->_nb <= 0)
-        this->_nb = 3;
-    if (this->_nb >= 4)
+        this->_nb = 4;
+    if (this->_nb >= 5)
         this->_nb = 1;
 }
 
@@ -87,6 +88,9 @@ void Menu::drawMap()
         case 3:
             DrawTextureEx(this->_map3->getTexture(), {1100, 100}, 90.0f, 30.0f, WHITE);
             break;
+        case 4:
+            DrawTextureEx(this->_map4->getTexture(), {1100, 100}, 90.0f, 30.0f, WHITE);
+            break;
     }
 }
 
@@ -97,6 +101,8 @@ Menu::~Menu() {
         delete (this->_map2);
     if (this->_map3)
         delete (this->_map3);
+    if (this->_map4)
+        delete (this->_map4);
 }
 
 }
