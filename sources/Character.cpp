@@ -20,7 +20,7 @@ namespace IndieStudio {
 
     void Character::init_rotate(Direction dir)
     {
-        //std::cout << "y == " << this->_rotation.y << std::endl;
+        std::cout << "y == " << this->_rotation.y << std::endl;
         switch (dir)
         {
         case UP:
@@ -58,6 +58,8 @@ namespace IndieStudio {
             this->_rotation.y = 85;
         if (this->_rotation.y > 272 && this->_rotation.y < 277)
             this->_rotation.y = -85;
+        if (this->_rotation.y > 300 || this->_rotation.y < -300)
+            this->_rotation.y = 0;
     }
 
     bool Character::checkCollideUp()
@@ -200,8 +202,8 @@ namespace IndieStudio {
         }
         if(this->player_id == 2){
             if (this->game->isKeyPressed(KEY_UP)) {
-                this->move_up();
                 this->init_rotate(UP);
+                this->move_up();
             }
             if (this->game->isKeyPressed(KEY_LEFT)) {
                 this->init_rotate(LEFT);
