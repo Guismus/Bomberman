@@ -15,6 +15,15 @@ Wall::Wall(Vector3 position, Walltype type)
     this->_type = type;
 }
 
+Vector3 Wall::getPosition()
+{
+    return this->_position;
+}
+
+Walltype Wall::getType()
+{
+    return this->_type;
+}
 Wall::~Wall()
 {
 }

@@ -50,8 +50,7 @@ void GameState::game()
         game->beginDrawing();
         game->beginDrawing3D(game->getCamera());
         game->drawModel(game->getModelFromMap(), { 0.0f, 0.0f, -8.0f }, 1.0f, WHITE);
-        game->drawPlayers();
-        game->drawCube({ 6.0f, 0.0f, -7.0f }, 1.0f, 2.0f, 1.0f, BROWN);
+        game->drawThings();
         game->ageBombs();
         game->endDrawing3D();
         game->drawFPS();

@@ -32,19 +32,29 @@ Model Game::getModelFromMap()
     return (this->_map->getModel());
 }
 
-void Game::drawPlayers()
+void Game::drawThings()
 {
     this->_player->draw();
     this->_player2->draw();
     this->_player3->draw();
     this->_player4->draw();
     this->drawBombs();
+    this->drawWalls();
 }
+
 
 void Game::drawBombs()
 {
     for(auto it = std::begin(this->bombs); it != std::end(this->bombs); ++it) {
         DrawModel((*it)->getModel(), (*it)->getPosition(), 0.5f, BLACK);
+    }
+}
+
+void Game::drawWalls()
+{
+    for(auto it = std::begin(this->walls); it != std::end(this->walls); ++it) {
+        if((*it)->getType() == BREAKABLE)
+        this->drawCube((*it)->getPosition(), 1.0f, 1.0f, 1.0f, BROWN);
     }
 }
 

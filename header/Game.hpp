@@ -25,7 +25,8 @@ namespace IndieStudio {
             Camera3D getCamera();
             Model getModelFromMap();
             void ReadColMap();
-            void drawPlayers();
+            void drawThings();
+            void drawWalls();
             void event();
             void dropBomb(Vector3 position, int power);
             void ageBombs();
