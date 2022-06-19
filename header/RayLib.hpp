@@ -18,6 +18,7 @@ namespace IndieStudio {
             RayLib();
             bool isWindowClosed() override;
             void clear() override;
+            void drawModelEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint) override;
             void drawModel(Model model, Vector3 position, float scale, Color tint) override;
             void drawCube(Vector3 position, float width, float height, float length, Color color) override;
             void drawSphere(Vector3 positon, float radius, Color color) override;

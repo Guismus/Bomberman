@@ -21,6 +21,11 @@ namespace IndieStudio {
         DrawModel(model, position, scale, color);
     }
 
+    void RayLib::drawModelEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color color)
+    {
+        DrawModelEx(model, position, rotationAxis, rotationAngle, scale, color);
+    }
+
     void RayLib::drawCube(Vector3 position, float width, float height, float length, Color color)
     {
         DrawCube(position, width, height, length, color);

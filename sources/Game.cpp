@@ -34,10 +34,10 @@ Model Game::getModelFromMap()
 
 void Game::drawThings()
 {
-    this->_player->draw();
-    this->_player2->draw();
-    this->_player3->draw();
-    this->_player4->draw();
+    this->_player->draw(this);
+    this->_player2->draw(this);
+    this->_player3->draw(this);
+    this->_player4->draw(this);
     this->drawBombs();
     this->drawWalls();
 }

@@ -9,6 +9,9 @@
 #define CHARACTER_HPP_
 
     #include "raylib.h"
+    #include "raymath.h"
+    #define X_SPEED 1.5
+    #define Y_SPEED 1.2
 
 typedef enum {
     UP,
@@ -32,13 +35,15 @@ namespace IndieStudio {
             void move_down();
             void move_left();
             void move_right();
-            void draw();
+            void init_rotate(Direction);
+            void draw(Game *game);
             Vector3 getPosition();
             ~Character();
         private:
             Game *game;
             void IA_move();
             Vector3 _position = {0};
+            Vector3 _rotation = {0};
             Model _model;
             int max_bomb = 1;
             int bomb = 1;

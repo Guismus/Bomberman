@@ -18,6 +18,29 @@ namespace IndieStudio {
         this->game = game;
     }
 
+    void Character::init_rotate(Direction dir)
+    {
+        switch (dir)
+        {
+        case UP:
+            if (this->_rotation.y > -180)
+                this->_rotation.y -= X_SPEED;
+            break;
+        case DOWN:
+            if (this->_rotation.y < 0)
+                this->_rotation.y += X_SPEED;
+            break;
+        case LEFT:
+            if (this->_rotation.y < 85)
+                this->_rotation.y += Y_SPEED;
+            break;
+        case RIGHT:
+            if (this->_rotation.y > -85)
+                this->_rotation.y -= Y_SPEED;
+            break;
+        }
+    }
+
     void Character::move_up()
     {
         if (this->_position.x >= 1.0f)
@@ -47,21 +70,21 @@ namespace IndieStudio {
         return (this->_position);
     }
 
-    void Character::draw()
+    void Character::draw(Game *game)
     {
         //rotate
         switch (this->player_id) {
             case 1:
-                DrawModel(this->_model, this->_position, 0.5f, RED);
+                game->drawModel(this->_model, this->_position, 0.5f, RED);
             break;
             case 2:
-                DrawModel(this->_model, this->_position, 0.5f, BLUE);
+                game->drawModel(this->_model, this->_position, 0.5f, BLUE);
             break;
             case 3:
-                DrawModel(this->_model, this->_position, 0.5f, PINK);
+                game->drawModel(this->_model, this->_position, 0.5f, PINK);
             break;
             case 4:
-                DrawModel(this->_model, this->_position, 0.5f, GREEN);
+                game->drawModel(this->_model, this->_position, 0.5f, GREEN);
             break;
         }
         //unrotate
@@ -72,16 +95,26 @@ namespace IndieStudio {
         if(isIA)
             return (this->IA_move());
         if(this->player_id == 1) {
-            if (this->game->isKeyPressed(KEY_W))
+            if (this->game->isKeyPressed(KEY_W)) {
+                this->init_rotate(UP);
                 this->move_up();
-            if (this->game->isKeyPressed(KEY_A))
+            }
+            if (this->game->isKeyPressed(KEY_A)) {
+                this->init_rotate(LEFT);
                 this->move_left();
-            if (this->game->isKeyPressed(KEY_S))
+            }
+            if (this->game->isKeyPressed(KEY_S)) {
+                this->init_rotate(DOWN);
                 this->move_down();
-            if (this->game->isKeyPressed(KEY_D))
+            }
+            if (this->game->isKeyPressed(KEY_D)) {
+                this->init_rotate(RIGHT);
                 this->move_right();
-            if (this->game->isKeyPressed(KEY_E))
+            }
+            if (this->game->isKeyPressed(KEY_E)) {
                 this->game->dropBomb(this->_position, this->power);
+            }
+            this->_model.transform = MatrixRotateXYZ({DEG2RAD*this->_rotation.x, DEG2RAD*this->_rotation.y, DEG2RAD*this->_rotation.z});
         }
         if(this->player_id == 2){
             if (this->game->isKeyPressed(KEY_UP))
