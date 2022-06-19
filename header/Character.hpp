@@ -35,6 +35,10 @@ namespace IndieStudio {
             void move_down();
             void move_left();
             void move_right();
+            bool checkCollideUp();
+            bool checkCollideLeft();
+            bool checkCollideDown();
+            bool checkCollideRight();
             void init_rotate(Direction);
             void draw(Game *game);
             Vector3 getPosition();

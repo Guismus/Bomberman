@@ -18,7 +18,7 @@ class GameState {
     public:
         GameState();
         void menu();
-        void game();
+        void game(std::string map, std::string colmap);
         ~GameState();
 
     private:

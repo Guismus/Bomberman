@@ -15,11 +15,12 @@
 
 namespace IndieStudio {
 
-Game::Game()
+Game::Game(std::string map, std::string colmap)
 {
     this->_cam = new EDCamera;
-    this->_map = new Map("../resources/map1.png", "../resources/cubicmap_atlas.png");
+    this->_map = new Map(map, "../resources/cubicmap_atlas.png");
     this->_entity = new Entity;
+    this->_colmap = colmap;
 }
 
 Camera3D Game::getCamera()
@@ -112,7 +113,7 @@ void Game::ReadColMap()
 {
     std::string map("");
     std::string buf("");
-    std::ifstream myfile("../resources/col_map1.txt");
+    std::ifstream myfile(this->_colmap);
     if (myfile.is_open())
     {
       while(std::getline(myfile, buf))
@@ -125,6 +126,11 @@ void Game::ReadColMap()
     }
     this->MakeWalls(map);
 }
+
+    std::vector<Wall*> Game::getWalls()
+    {
+        return (this->walls);
+    }
 
     void Game::MakeWalls(std::string map)
     {
