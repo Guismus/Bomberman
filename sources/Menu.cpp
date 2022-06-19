@@ -54,16 +54,16 @@ std::string Menu::getColMap()
 {
     switch (this->_nb) {
         case 1:
-            return ("../resources/col_map1");
+            return ("../resources/col_map1.txt");
             break;
         case 2:
-            return ("../resources/col_map2");
+            return ("../resources/col_map2.txt");
             break;
         case 3:
-            return ("../resources/col_map3");
+            return ("../resources/col_map3.txt");
             break;
         case 4:
-            return ("../resources/col_map4");
+            return ("../resources/col_map4.txt");
             break;
     }
     return (nullptr);
