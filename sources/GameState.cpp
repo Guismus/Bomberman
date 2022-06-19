@@ -20,10 +20,12 @@ GameState::GameState()
 void GameState::menu()
 {
     IndieStudio::Menu *menu = new IndieStudio::Menu;
+    int state = 0;
     while (!menu->isWindowClosed())
     {
         if (menu->isKeyPressed(KEY_ENTER)) {
-            this->game(menu->getMap(), menu->getColMap());
+            if (this->game(menu->getMap(), menu->getColMap()))
+                return;
         }
         menu->event();
         menu->beginDrawing();
@@ -39,7 +41,7 @@ void GameState::menu()
     }
 }
 
-void GameState::game(std::string map, std::string colmap)
+int GameState::game(std::string map, std::string colmap)
 {
     IndieStudio::Game *game = new IndieStudio::Game(map, colmap);
     int time = 0;
@@ -71,13 +73,16 @@ void GameState::game(std::string map, std::string colmap)
     time = game->getTime();
     delete game;
     if (victory != 0)
-        this->endGame(victory, time);
+        return (this->endGame(victory, time));
+    return (0);
 }
 
-void GameState::endGame(int id, int time)
+int GameState::endGame(int id, int time)
 {
     IndieStudio::EndGame *end = new IndieStudio::EndGame;
     while (!end->isWindowClosed()) {
+        if (end->isKeyPressed(KEY_ENTER))
+            return (0);
         end->beginDrawing();
         switch (id) {
             case -1:
@@ -102,6 +107,7 @@ void GameState::endGame(int id, int time)
         end->endDrawing();
     }
     delete (end);
+    return (1);
 }
 
 GameState::~GameState() {

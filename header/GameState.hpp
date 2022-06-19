@@ -21,8 +21,8 @@ class GameState {
     public:
         GameState();
         void menu();
-        void game(std::string map, std::string colmap);
-        void endGame(int id, int time);
+        int game(std::string map, std::string colmap);
+        int endGame(int id, int time);
         ~GameState();
 
     private:
