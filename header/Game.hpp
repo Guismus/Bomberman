@@ -14,7 +14,8 @@
     #include "Character.hpp"
     #include "Entity.hpp"
     #include "Bomb.hpp"
-    #include "vector"
+    #include <vector>
+    #include "Wall.hpp"
 
 namespace IndieStudio {
 
@@ -23,6 +24,7 @@ namespace IndieStudio {
             Game();
             Camera3D getCamera();
             Model getModelFromMap();
+            void ReadColMap();
             void drawPlayers();
             void event();
             void dropBomb(Vector3 position, int power);
@@ -31,6 +33,9 @@ namespace IndieStudio {
             void explode(Vector3 position, int power);
             ~Game();
         private:
+            void MakeWalls(std::string colMap);
+            void newWall(Vector3 position, Walltype type);
+            void newCharacter(char id, Vector3 position);
             EDCamera *_cam = nullptr;
             Map *_map = nullptr;
             Character *_player = nullptr;
@@ -39,6 +44,7 @@ namespace IndieStudio {
             Character *_player4 = nullptr;
             Entity *_entity = nullptr;
             std::vector<Bomb*> bombs;
+            std::vector<Wall*> walls;
     };
 }
 

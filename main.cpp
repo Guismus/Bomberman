@@ -6,9 +6,12 @@
 */
 
 #include "main.hpp"
+#include <cstdlib>
+#include <ctime>
 
 int main(void)
 {
+    std::srand(std::time(nullptr));
     IndieStudio::GameState *tkt = new IndieStudio::GameState;
     tkt->menu();
     delete(tkt);

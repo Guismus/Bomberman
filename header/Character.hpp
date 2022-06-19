@@ -26,7 +26,7 @@ namespace IndieStudio {
 
     class Character {
         public:
-            Character(int nb, bool isIA, Game *game);
+            Character(int nb, bool isIA, Game *game, Vector3 position);
             void event();
             void move_up();
             void move_down();

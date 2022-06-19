@@ -9,16 +9,9 @@
 
 namespace IndieStudio {
 
-    Character::Character(int nb, bool isIA, Game *game)
+    Character::Character(int nb, bool isIA, Game *game, Vector3 position)
     {
-        if (nb == 1)
-            this->_position = {1.0f, 0.0f, 22.0f};
-        if (nb == 2)
-            this->_position = {1.0f, 0.0f, -7.0f};
-        if (nb == 3)
-            this->_position = {14.0f, 0.0f, -7.0f};
-        if (nb == 4)
-            this->_position = {14.0f, 0.0f, 22.0f};
+        this->_position = position;
         this->player_id = nb;
         this->_model = LoadModel("../resources/bomberman/bomberman.obj");
         this->isIA = isIA;
@@ -56,6 +49,7 @@ namespace IndieStudio {
 
     void Character::draw()
     {
+        //rotate
         switch (this->player_id) {
             case 1:
                 DrawModel(this->_model, this->_position, 0.5f, RED);
@@ -70,6 +64,7 @@ namespace IndieStudio {
                 DrawModel(this->_model, this->_position, 0.5f, GREEN);
             break;
         }
+        //unrotate
     }
 
     void Character::event()

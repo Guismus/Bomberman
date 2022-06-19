@@ -7,6 +7,8 @@
 
 #include "Game.hpp"
 #include "stdio.h"
+#include <iostream>
+#include <fstream>
 #include <algorithm>
 
 // this->_entity->_slots[static_cast<int>(this->_player->getPosition().x) - 1][-static_cast<int>(this->_player->getPosition().z) + 22]
@@ -17,10 +19,6 @@ Game::Game()
 {
     this->_cam = new EDCamera;
     this->_map = new Map("../resources/map1.png", "../resources/cubicmap_atlas.png");
-    this->_player = new Character(1, false, this);
-    this->_player2 = new Character(2, false, this);
-    this->_player3 = new Character(3, false, this);
-    this->_player4 = new Character(4, false, this);
     this->_entity = new Entity;
 }
 
@@ -100,4 +98,73 @@ void Game::explode(Vector3 position, int power)
     //todo
 }
 
+void Game::ReadColMap()
+{
+    std::string map("");
+    std::string buf("");
+    std::ifstream myfile("../resources/col_map1.txt");
+    if (myfile.is_open())
+    {
+      while(std::getline(myfile, buf))
+        {
+            map.append(buf);
+            map.append("\n");
+        }
+        myfile.close();
+        map.append("\0");
+    }
+    this->MakeWalls(map);
+}
+
+    void Game::MakeWalls(std::string map)
+    {
+        int line = 0;
+        int collumn = 24;
+
+        for (int i = 0; i < map.size(); i++, collumn--)
+        {
+            switch (map[i])
+            {
+            case 'W':
+                this->newWall({(float)line, 0.0f, (float)collumn}, UNBREAKABLE);
+                break;
+            case '_':
+                if(std::rand() % 3)
+                    this->newWall({(float)line, 0.0f, (float)collumn}, BREAKABLE);
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+                this->newCharacter(map[i], {(float)line, 0.0f, (float)collumn});
+            break;
+            case '\n':
+                collumn = 24;
+                line++;
+            break;
+            }
+        }
+    }
+
+    void Game::newWall(Vector3 position, Walltype type)
+    {
+    Wall *obj = new Wall(position, type);
+    this->walls.push_back(obj);
+    }
+
+    void Game::newCharacter(char id, Vector3 position)
+    {
+        switch (id){
+        case '1':
+            this->_player = new Character(1, false, this, position);
+        break;
+        case '2':
+            this->_player2 = new Character(2, false, this, position);
+        break;
+        case '3':
+            this->_player3 = new Character(3, false, this, position);
+        break;
+        case '4':
+            this->_player4 = new Character(4, false, this, position);
+        }
+    }
 }

@@ -36,12 +36,12 @@ void GameState::menu()
         DrawText("Press ENTER to start the game!", 50, 690, 20, LIGHTGRAY);
         menu->endDrawing();
     }
-    
 }
 
 void GameState::game()
 {
     IndieStudio::Game *game = new IndieStudio::Game;
+    game->ReadColMap();
     Song *music = new Song("../resources/country.mp3");
     music->play();
     while (!game->isWindowClosed()) {
