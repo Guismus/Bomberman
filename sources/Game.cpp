@@ -139,7 +139,7 @@ void Game::ReadColMap()
                 this->newWall({(float)line, 0.0f, (float)collumn}, UNBREAKABLE);
                 break;
             case '_':
-                if(std::rand() % 3)
+                if(RANDPERCENT(50))
                     this->newWall({(float)line, 0.0f, (float)collumn}, BREAKABLE);
             case '1':
             case '2':

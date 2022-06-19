@@ -17,6 +17,8 @@
     #include <vector>
     #include "Wall.hpp"
 
+#define RANDPERCENT(x) (((std::rand() % 100) <= x))
+
 namespace IndieStudio {
 
     class Game : public RayLib {
