@@ -220,6 +220,11 @@ void Game::ReadColMap()
         return (this->walls);
     }
 
+    std::vector<Bomb*> Game::getBombs()
+    {
+        return (this->bombs);
+    }
+
     void Game::MakeWalls(std::string map)
     {
         int line = 0;

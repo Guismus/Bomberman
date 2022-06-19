@@ -27,6 +27,7 @@ namespace IndieStudio {
             Camera3D getCamera();
             Model getModelFromMap();
             std::vector<Wall*> getWalls();
+            std::vector<Bomb*> getBombs();
             void ReadColMap();
             void drawThings();
             void drawWalls();

@@ -67,6 +67,12 @@ namespace IndieStudio {
                 return false;
             }
         }
+        for (Bomb *w : this->game->getBombs()) {
+            if (w->getPosition().x == round(_position.x - 0.3f) && w->getPosition().z == round(_position.z)) {
+                if (!(w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z)))
+                    return false;
+            }
+        }
         return true;
     }
 
@@ -81,6 +87,12 @@ namespace IndieStudio {
         for (Wall *w : this->game->getWalls()) {
             if (w->getPosition().x == round(_position.x + 0.3f) && w->getPosition().z == round(_position.z)) {
                 return false;
+            }
+        }
+        for (Bomb *w : this->game->getBombs()) {
+            if (w->getPosition().x == round(_position.x + 0.3f) && w->getPosition().z == round(_position.z)) {
+                if (!(w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z)))
+                    return false;
             }
         }
         return true;
@@ -99,6 +111,12 @@ namespace IndieStudio {
                 return false;
             }
         }
+        for (Bomb *w : this->game->getBombs()) {
+            if (w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z + 0.3f)) {
+                if (!(w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z)))
+                    return false;
+            }
+        }
         return true;
     }
 
@@ -113,6 +131,12 @@ namespace IndieStudio {
         for (Wall *w : this->game->getWalls()) {
             if (w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z - 0.3f)) {
                 return false;
+            }
+        }
+        for (Bomb *w : this->game->getBombs()) {
+            if (w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z - 0.3f)) {
+                if (!(w->getPosition().x == round(_position.x) && w->getPosition().z == round(_position.z)))
+                    return false;
             }
         }
         return true;
