@@ -21,7 +21,7 @@ namespace IndieStudio {
     {
         InitWindow(this->_width, this->_height, "Bomberman");
         Camera camera = { { 16.0f, 14.0f, 16.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, 45.0f, 0 };
-        SetTargetFPS(144);
+        SetTargetFPS(70);
     }
 
     Window::~Window()
