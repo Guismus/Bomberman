@@ -42,7 +42,7 @@ void GameState::game()
 {
     IndieStudio::Game *game = new IndieStudio::Game;
     game->ReadColMap();
-    Song *music = new Song("../resources/country.mp3");
+    Song *music = new Song("../resources/music.xm");
     music->play();
     while (!game->isWindowClosed()) {
         music->update();
