@@ -108,6 +108,38 @@ void Game::event()
     this->_player4->event();
 }
 
+int Game::getTime()
+{
+    return (this->_time);
+}
+
+int Game::isWin()
+{
+    int nb_death = 0;
+    if (!this->_player->isAlive())
+        nb_death++;
+    if (!this->_player2->isAlive())
+        nb_death++;
+    if (!this->_player3->isAlive())
+        nb_death++;
+    if (!this->_player4->isAlive())
+        nb_death++;
+    if (nb_death == 3) {
+        if (this->_player->isAlive())
+            return (1);
+        if (this->_player2->isAlive())
+            return (2);
+        if (this->_player3->isAlive())
+            return (3);
+        if (this->_player4->isAlive())
+            return (4);
+    }
+    if (nb_death == 4) {
+        return (-1);
+    }
+    return (0);
+}
+
 Game::~Game()
 {
     if (this->_cam)

@@ -28,6 +28,8 @@ namespace IndieStudio {
             Model getModelFromMap();
             std::vector<Wall*> getWalls();
             std::vector<Bomb*> getBombs();
+            int isWin();
+            int getTime();
             void addTime();
             void ReadColMap();
             void drawThings();

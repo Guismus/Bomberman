@@ -43,17 +43,21 @@ void GameState::game(std::string map, std::string colmap)
 {
     IndieStudio::Game *game = new IndieStudio::Game(map, colmap);
     int time = 0;
+    int victory = 0;
     game->ReadColMap();
     Song *music = new Song("../resources/music.xm");
     music->play();
     while (!game->isWindowClosed()) {
+        victory = game->isWin();
+        if (victory != 0)
+            break;
         time++;
         if (time % 70 == 0)
             game->addTime();
-        game->drawHUD();
         music->update();
         game->event();
         game->beginDrawing();
+        game->drawHUD();
         game->beginDrawing3D(game->getCamera());
         game->drawModel(game->getModelFromMap(), { 0.0f, 0.0f, -8.0f }, 1.0f, WHITE);
         game->powerupTick();
@@ -64,7 +68,40 @@ void GameState::game(std::string map, std::string colmap)
         game->drawFPS();
         game->endDrawing();
     }
+    time = game->getTime();
     delete game;
+    if (victory != 0)
+        this->endGame(victory, time);
+}
+
+void GameState::endGame(int id, int time)
+{
+    IndieStudio::EndGame *end = new IndieStudio::EndGame;
+    while (!end->isWindowClosed()) {
+        end->beginDrawing();
+        switch (id) {
+            case -1:
+                end->drawText("DRAW!", 700, 720 / 2, 300, BLACK);
+                break;
+            case 1:
+                end->drawText("Well played player 1!!!", 375, 720 / 2 - 100, 50, BLACK);
+                break;
+            case 2:
+                end->drawText("Well played player 2!!!", 375, 720 / 2 - 100, 50, BLACK);
+                break;
+            case 3:
+                end->drawText("Well played player 3!!!", 375, 720 / 2 - 100, 50, BLACK);
+                break;
+            case 4:
+                end->drawText("Well played player 4!!!", 375, 720 / 2 - 100, 50, BLACK);
+                break;
+        }
+        end->drawTime(time);
+        end->drawText("Press ENTER to return in the menu", 450, 720 / 2 + 200, 20, LIGHTGRAY);
+        end->drawText("Press ESCAPE to exit the game", 475, 720 / 2 + 230, 20, LIGHTGRAY);
+        end->endDrawing();
+    }
+    delete (end);
 }
 
 GameState::~GameState() {

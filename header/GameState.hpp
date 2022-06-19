@@ -11,6 +11,9 @@
     #include "RayLib.hpp"
     #include "Window.hpp"
     #include "Song.hpp"
+    #include "Game.hpp"
+    #include "Menu.hpp"
+    #include "EndGame.hpp"
 
 namespace IndieStudio {
 
@@ -19,6 +22,7 @@ class GameState {
         GameState();
         void menu();
         void game(std::string map, std::string colmap);
+        void endGame(int id, int time);
         ~GameState();
 
     private:
