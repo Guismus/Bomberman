@@ -106,34 +106,44 @@ void Game::dropBomb(Vector3 position, int power, Character *owner)
     }
 }
 
+static Vector3 getPos(float x, float y, float z)
+{
+    Vector3 vec = {};
+    vec.x = x;
+    vec.y = y;
+    vec.z = z;
+
+    return (vec);
+}
+    
 void Game::explode(Vector3 position, int power)
 {
     for(int i = 0; i < power; i++){
-        this->check_player((Vector3){position.x, position.y, position.z + 1});
-        if (this->check_box((Vector3){position.x, position.y, position.z + 1}))
+        this->check_player(getPos(position.x, position.y, position.z + 1));
+        if (this->check_box(getPos(position.x, position.y, position.z + 1)))
             break;
-        if (this->check_wall((Vector3){position.x, position.y, position.z + 1}))
-            break;
-    }
-    for(int i = 0; i < power; i++){
-        this->check_player((Vector3){position.x, position.y, position.z - 1});
-        if (this->check_box((Vector3){position.x, position.y, position.z - 1}))
-            break;
-        if (this->check_wall((Vector3){position.x, position.y, position.z - 1}))
+        if (this->check_wall(getPos(position.x, position.y, position.z + 1)))
             break;
     }
     for(int i = 0; i < power; i++){
-        this->check_player((Vector3){position.x + 1, position.y, position.z});
-        if (this->check_box((Vector3){position.x + 1, position.y, position.z}))
+        this->check_player(getPos(position.x, position.y, position.z - 1));
+        if (this->check_box(getPos(position.x, position.y, position.z - 1)))
             break;
-        if (this->check_wall((Vector3){position.x + 1, position.y, position.z}))
+        if (this->check_wall(getPos(position.x, position.y, position.z - 1)))
             break;
     }
     for(int i = 0; i < power; i++){
-        this->check_player((Vector3){position.x - 1, position.y, position.z});
-        if (this->check_box((Vector3){position.x - 1, position.y, position.z}))
+        this->check_player(getPos(position.x + 1, position.y, position.z));
+        if (this->check_box(getPos(position.x + 1, position.y, position.z)))
             break;
-        if (this->check_wall((Vector3){position.x - 1, position.y, position.z}))
+        if (this->check_wall(getPos(position.x + 1, position.y, position.z)))
+            break;
+    }
+    for(int i = 0; i < power; i++){
+        this->check_player(getPos(position.x - 1, position.y, position.z));
+        if (this->check_box(getPos(position.x - 1, position.y, position.z)))
+            break;
+        if (this->check_wall(getPos(position.x - 1, position.y, position.z)))
             break;
     }
 }
