@@ -28,13 +28,13 @@ void GameState::menu()
         menu->event();
         menu->beginDrawing();
         if (menu->isMulti())
-            DrawText("2 player mode", 500, 30, 40, BLACK);
+            menu->drawText("2 player mode", 500, 30, 40, BLACK);
         else
-            DrawText("1 player mode", 500, 30, 40, BLACK);
+            menu->drawText("1 player mode", 500, 30, 40, BLACK);
         menu->drawMap();
-        DrawText("Press SPACE to enable / disable 2 players local mode!", 50, 630, 20, LIGHTGRAY);
-        DrawText("Press Q / D to change map!", 50, 660, 20, LIGHTGRAY);
-        DrawText("Press ENTER to start the game!", 50, 690, 20, LIGHTGRAY);
+        menu->drawText("Press SPACE to enable / disable 2 players local mode!", 50, 630, 20, LIGHTGRAY);
+        menu->drawText("Press Q / D to change map!", 50, 660, 20, LIGHTGRAY);
+        menu->drawText("Press ENTER to start the game!", 50, 690, 20, LIGHTGRAY);
         menu->endDrawing();
     }
 }
@@ -42,10 +42,15 @@ void GameState::menu()
 void GameState::game(std::string map, std::string colmap)
 {
     IndieStudio::Game *game = new IndieStudio::Game(map, colmap);
+    int time = 0;
     game->ReadColMap();
     Song *music = new Song("../resources/music.xm");
     music->play();
     while (!game->isWindowClosed()) {
+        time++;
+        if (time % 70 == 0)
+            game->addTime();
+        game->drawHUD();
         music->update();
         game->event();
         game->beginDrawing();

@@ -16,6 +16,11 @@ namespace IndieStudio {
         DrawFPS(10, 10);
     }
 
+    void RayLib::drawText(std::string str, int x, int y, int size, Color color)
+    {
+        DrawText(const_cast<char*>(str.c_str()), x, y, size, color);
+    }
+
     void RayLib::drawModel(Model model, Vector3 position, float scale, Color color)
     {
         DrawModel(model, position, scale, color);

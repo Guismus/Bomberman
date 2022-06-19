@@ -46,6 +46,7 @@ namespace IndieStudio {
             void addPower();
             void addGhosting();
             void kill();
+            bool isAlive();
             Vector3 getPosition();
             ~Character();
             int bombs = 1;
