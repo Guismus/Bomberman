@@ -22,8 +22,9 @@ void GameState::menu()
     IndieStudio::Menu *menu = new IndieStudio::Menu;
     while (!menu->isWindowClosed())
     {
-        if (menu->isKeyPressed(KEY_ENTER))
-            this->game();
+        if (menu->isKeyPressed(KEY_ENTER)) {
+            this->game(menu->getMap(), menu->getColMap());
+        }
         menu->event();
         menu->beginDrawing();
         if (menu->isMulti())
@@ -38,9 +39,9 @@ void GameState::menu()
     }
 }
 
-void GameState::game()
+void GameState::game(std::string map, std::string colmap)
 {
-    IndieStudio::Game *game = new IndieStudio::Game;
+    IndieStudio::Game *game = new IndieStudio::Game(map, colmap);
     game->ReadColMap();
     Song *music = new Song("../resources/music.xm");
     music->play();
