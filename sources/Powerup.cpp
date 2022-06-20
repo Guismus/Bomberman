@@ -6,6 +6,7 @@
 */
 
 #include "Powerup.hpp"
+#include <stdlib.h>
 
 namespace IndieStudio {
 
