@@ -6,12 +6,13 @@
 */
 
 #include "Powerup.hpp"
+#include <stdlib.h>
 
 namespace IndieStudio {
 
     Powerup::Powerup(Vector3 position)
     {
-        int type = rand() % 4;
+        int type = std::rand() % 4;
         this->position = position;
         switch (type)
         {

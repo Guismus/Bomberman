@@ -6,7 +6,6 @@
 */
 
 #include "Game.hpp"
-#include "stdio.h"
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -372,8 +371,8 @@ void Game::ReadColMap()
         this->powerupt_timer -= time;
         if (this->powerupt_timer <= 0) {
             this->powerupt_timer = 15;
-            this->dropPowerup(getPos((float) (rand() % 16),
-                0, (float) (rand() % 29) -7));
+            this->dropPowerup(getPos((float) (std::rand() % 16),
+                0, (float) (std::rand() % 29) -7));
         }
     }
 
