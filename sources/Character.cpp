@@ -218,7 +218,7 @@ namespace IndieStudio {
                 this->init_rotate(RIGHT);
                 this->move_right();
             }
-            if (this->game->isKeyPressed(KEY_ENTER))
+            if (this->game->isKeyPressed(KEY_RIGHT_CONTROL))
                 this->game->dropBomb(this->_position, this->power, this);
         }
         this->_model.transform = MatrixRotateXYZ({DEG2RAD*this->_rotation.x, DEG2RAD*this->_rotation.y, DEG2RAD*this->_rotation.z});
